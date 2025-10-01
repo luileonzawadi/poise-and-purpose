@@ -1,0 +1,306 @@
+<!-- Reusable Header Component: Poise & Purpose Kenya -->
+<header class="pp-header" role="banner">
+	<a class="pp-skip" href="#main">Skip to content</a>
+	<div class="pp-nav-wrap">
+		<a href="/" class="pp-brand" aria-label="Poise and Purpose Kenya Home">
+			<span class="pp-logo" aria-hidden="true">
+				<svg viewBox="0 0 64 64" width="28" height="28" class="pp-logo-svg" focusable="false" aria-hidden="true">
+					<defs>
+						<linearGradient id="ppG" x1="0" y1="0" x2="1" y2="1">
+							<stop offset="0%" stop-color="#9b5cf6"/>
+							<stop offset="100%" stop-color="#4ed1f8"/>
+						</linearGradient>
+					</defs>
+					<circle cx="32" cy="32" r="14" fill="url(#ppG)"></circle>
+					<path d="M32 6 L38 20 L54 20 L41 30 L46 46 L32 36 L18 46 L23 30 L10 20 L26 20 Z" fill="url(#ppG)" opacity="0.6"></path>
+				</svg>
+			</span>
+			<span class="pp-brand-text">Poise &amp; Purpose Kenya</span>
+		</a>
+
+		<button class="pp-burger" aria-expanded="false" aria-controls="pp-primary-nav" aria-label="Open menu">
+			<span class="pp-burger-box" aria-hidden="true">
+				<span class="pp-burger-inner"></span>
+			</span>
+		</button>
+
+		<!-- overlay shown on mobile when menu is open -->
+		<div class="pp-nav-overlay" hidden></div>
+
+		<nav id="pp-primary-nav" class="pp-nav" role="navigation" aria-label="Primary">
+			<ul class="pp-nav-list">
+				<li><a href="/" class="pp-link">Home</a></li>
+				<li><a href="#about" class="pp-link">About</a></li>
+				<li><a href="#programs" class="pp-link">Programs</a></li>
+				<li><a href="#impact" class="pp-link">Impact</a></li>
+				<li><a href="#get-involved" class="pp-link pp-cta">Get Involved</a></li>
+				<li><a href="#blog" class="pp-link">Blog</a></li>
+				<li><a href="#events" class="pp-link">Events</a></li>
+				<li><a href="#contact" class="pp-link">Contact</a></li>
+			</ul>
+		</nav>
+	</div>
+	<canvas class="pp-particles" aria-hidden="true"></canvas>
+</header>
+
+<style>
+	:root{
+		--pp-bg: rgba(15,15,30,0.35);
+		--pp-bg-scrolled: rgba(15,15,30,0.55);
+		--pp-border: rgba(255,255,255,0.18);
+		--pp-text: #f5f7ff;
+		--pp-muted: rgba(240,242,255,0.7);
+		--pp-accent1:#9b5cf6;
+		--pp-accent2:#4ed1f8;
+		--pp-glow: 0 8px 30px rgba(120,150,255,0.35), 0 1px 0 rgba(255,255,255,0.2) inset;
+		--pp-radius: 16px;
+		--pp-blur: 14px;
+		--pp-speed: 260ms;
+		--pp-ease: cubic-bezier(.2,.7,.2,1);
+	}
+
+	.pp-header{
+		position:fixed; top:0; left:0; right:0; z-index:1000;
+		backdrop-filter:saturate(140%) blur(var(--pp-blur));
+		-webkit-backdrop-filter:saturate(140%) blur(var(--pp-blur));
+		background: linear-gradient(120deg, rgba(155,92,246,.12), rgba(78,209,248,.10)) , var(--pp-bg);
+		border-bottom:1px solid var(--pp-border);
+		box-shadow: 0 10px 40px rgba(0,0,0,0.18);
+		color:var(--pp-text);
+		isolation:isolate;
+	}
+
+	.pp-header.scrolled{
+		background: linear-gradient(120deg, rgba(155,92,246,.18), rgba(78,209,248,.16)) , var(--pp-bg-scrolled);
+		transition: background var(--pp-speed) var(--pp-ease), box-shadow var(--pp-speed) var(--pp-ease);
+		box-shadow: 0 12px 50px rgba(0,0,0,0.28);
+	}
+
+	.pp-skip{
+		position:absolute; left:-999px; top:-999px;
+		background:#0b1020; color:#fff; padding:8px 12px; border-radius:8px;
+	}
+	.pp-skip:focus{ left:16px; top:12px; outline:2px solid #9b5cf6; }
+
+	.pp-nav-wrap{
+		max-width:1200px; margin:0 auto; padding:12px 16px; display:flex; align-items:center; justify-content:space-between; gap:12px;
+	}
+
+	.pp-brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--pp-text); transform-style:preserve-3d; perspective:800px; }
+	.pp-logo{
+		display:inline-grid; place-items:center; width:34px; height:34px; border-radius:10px;
+		box-shadow: var(--pp-glow);
+		background: radial-gradient(120px 80px at 30% 30%, rgba(155,92,246,.35) 0%, transparent 60%),
+		            radial-gradient(100px 70px at 70% 70%, rgba(78,209,248,.35) 0%, transparent 60%);
+	}
+	.pp-logo-svg{ filter: drop-shadow(0 4px 10px rgba(155,92,246,.55)) drop-shadow(0 6px 18px rgba(78,209,248,.45)); transform: translateZ(8px); transition: transform var(--pp-speed) var(--pp-ease) }
+	.pp-brand-text{ font-weight:700; letter-spacing:.2px; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+
+	.pp-brand:hover .pp-logo-svg, .pp-brand:focus-visible .pp-logo-svg{ transform: translateZ(14px) rotateZ(-2deg) scale(1.04); }
+
+	.pp-burger{
+		display:inline-flex; align-items:center; justify-content:center;
+		width:44px; height:44px; border-radius:12px; border:1px solid var(--pp-border);
+		background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+		color:var(--pp-text); cursor:pointer;
+		transition: transform var(--pp-speed) var(--pp-ease), background var(--pp-speed) var(--pp-ease), box-shadow var(--pp-speed) var(--pp-ease);
+	}
+	.pp-burger:hover{ transform: translateZ(8px) scale(1.04); box-shadow: var(--pp-glow); }
+	.pp-burger:focus-visible{ outline:2px solid var(--pp-accent2); outline-offset:2px; }
+
+	.pp-burger-box{ position:relative; width:22px; height:16px; }
+	.pp-burger-inner, .pp-burger-inner:before, .pp-burger-inner:after{
+		position:absolute; left:0; width:100%; height:2px; background:linear-gradient(90deg, var(--pp-accent1), var(--pp-accent2)); border-radius:2px; content:"";
+		transition: transform var(--pp-speed) var(--pp-ease), opacity var(--pp-speed) var(--pp-ease);
+	}
+	.pp-burger-inner{ top:0; }
+	.pp-burger-inner:before{ top:7px; }
+	.pp-burger-inner:after{ top:14px; }
+
+	.pp-burger[aria-expanded="true"] .pp-burger-inner{ transform:translateY(7px) rotate(45deg); }
+	.pp-burger[aria-expanded="true"] .pp-burger-inner:before{ opacity:0; }
+	.pp-burger[aria-expanded="true"] .pp-burger-inner:after{ transform:translateY(-7px) rotate(-45deg); }
+
+	.pp-nav{ position:relative; }
+	.pp-nav-list{
+		display:flex; align-items:center; gap:4px; list-style:none; margin:0; padding:0;
+	}
+
+	.pp-link{
+		display:inline-flex; align-items:center; justify-content:center;
+		padding:10px 14px; border-radius:12px; color:var(--pp-muted); text-decoration:none; font-weight:500;
+		transition: color var(--pp-speed) var(--pp-ease), transform var(--pp-speed) var(--pp-ease), box-shadow var(--pp-speed) var(--pp-ease), background var(--pp-speed) var(--pp-ease);
+		transform-style:preserve-3d;
+	}
+	/* Active page indicator */
+	.pp-link.active{
+		color:var(--pp-text);
+		background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+		box-shadow: inset 0 0 0 1px var(--pp-border), 0 8px 20px rgba(155,92,246,.18), 0 10px 28px rgba(78,209,248,.16);
+	}
+	.pp-link:hover, .pp-link:focus-visible{
+		color:var(--pp-text);
+		background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+		transform: translateY(-1px) translateZ(8px);
+		box-shadow: 0 10px 24px rgba(155,92,246,.25), 0 14px 36px rgba(78,209,248,.22);
+		outline: none;
+	}
+	/* Make CTA look neutral by default; only highlight on hover/active */
+	.pp-cta{
+		background: none;
+		border: none;
+	}
+	.pp-cta.active{ background: linear-gradient(90deg, rgba(155,92,246,.30), rgba(78,209,248,.30)); border:1px solid var(--pp-border); }
+	.pp-cta:hover, .pp-cta:focus-visible{
+		background: linear-gradient(90deg, rgba(155,92,246,.28), rgba(78,209,248,.28));
+	}
+
+	@media (max-width: 900px){
+		.pp-nav{ position:fixed; inset:72px 10px auto 10px; z-index:1100; }
+		.pp-nav-list{
+			position:relative; flex-direction:column; align-items:stretch; gap:8px;
+			background: linear-gradient(160deg, rgba(155,92,246,.20), rgba(78,209,248,.16)) , rgba(10,12,26,.92);
+			border:1px solid var(--pp-border); border-radius:16px;
+			padding:12px; opacity:0; transform: translateY(-8px) scale(.98);
+			pointer-events:none; transition: opacity var(--pp-speed) var(--pp-ease), transform var(--pp-speed) var(--pp-ease);
+			backdrop-filter: blur(10px);
+		}
+		.pp-nav-list.open{
+			opacity:1; transform: translateY(0) scale(1); pointer-events:auto; box-shadow: var(--pp-glow);
+		}
+		.pp-burger{ display:inline-flex; }
+	}
+	@media (min-width: 901px){
+		.pp-burger{ display:none; }
+	}
+
+	/* Particles canvas fills header */
+	.pp-particles{
+		position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:.6;
+		mix-blend-mode: screen;
+	}
+
+	/* Mobile overlay */
+	.pp-nav-overlay{
+		position:fixed; inset:0; background: rgba(5,8,18,0.55); backdrop-filter: blur(2px);
+		z-index:1050; /* below menu panel (1100), above content */
+	}
+</style>
+
+<script>
+	(function(){
+		// reliably find header within the injected container
+		const scriptEl = document.currentScript;
+		let header = null;
+		if(scriptEl){
+			// Try previousElementSibling first
+			header = scriptEl.previousElementSibling && scriptEl.previousElementSibling.classList && scriptEl.previousElementSibling.classList.contains('pp-header')
+				? scriptEl.previousElementSibling
+				: null;
+			// If not found, try parent container (site-header) then query inside it
+			if(!header && scriptEl.parentElement){
+				const container = scriptEl.parentElement;
+				header = container.querySelector('.pp-header');
+			}
+		}
+		if(!header){ header = document.querySelector('.pp-header'); }
+		const burger = header.querySelector('.pp-burger');
+		const list = header.querySelector('.pp-nav-list');
+		const overlay = header.querySelector('.pp-nav-overlay');
+		const canvas = header.querySelector('.pp-particles');
+		const ctx = canvas.getContext('2d');
+		let particles = [];
+		let dpr = Math.max(1, window.devicePixelRatio || 1);
+
+		function resize(){
+			const rect = header.getBoundingClientRect();
+			canvas.width = Math.floor(rect.width * dpr);
+			canvas.height = Math.floor(rect.height * dpr);
+			canvas.style.width = rect.width + 'px';
+			canvas.style.height = rect.height + 'px';
+		}
+
+		function createParticles(){
+			const count = Math.max(12, Math.floor(canvas.width / 120));
+			particles = Array.from({length: count}).map(()=>({
+				x: Math.random() * canvas.width,
+				y: Math.random() * canvas.height,
+				r: Math.random() * 1.4 + 0.6,
+				vx: (Math.random() - 0.5) * 0.25,
+				vy: (Math.random() - 0.5) * 0.25,
+				h: Math.random()*360
+			}));
+		}
+
+		function draw(){
+			ctx.clearRect(0,0,canvas.width, canvas.height);
+			for(const p of particles){
+				p.x += p.vx; p.y += p.vy;
+				if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
+				if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
+				p.h = (p.h + 0.2) % 360;
+				const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r*6);
+				grad.addColorStop(0, `hsla(${p.h},90%,70%,.9)`);
+				grad.addColorStop(1, `hsla(${p.h},90%,70%,0)`);
+				ctx.fillStyle = grad;
+				ctx.beginPath();
+				ctx.arc(p.x, p.y, p.r*6, 0, Math.PI*2);
+				ctx.fill();
+			}
+			requestAnimationFrame(draw);
+		}
+
+		function onScroll(){
+			const scrolled = window.scrollY > 10;
+			header.classList.toggle('scrolled', scrolled);
+		}
+
+		// Mark active link based on current URL path or hash
+		function markActive(){
+			const currentPath = location.pathname.replace(/\/$/,'');
+			const currentHash = location.hash || '';
+			const links = header.querySelectorAll('.pp-nav-list .pp-link');
+			links.forEach(a=> a.classList.remove('active'));
+			links.forEach(a=>{
+				const href = (a.getAttribute('href')||'').replace(/\/$/,'');
+				if(href && href.startsWith('#')){
+					if(href === currentHash){ a.classList.add('active'); }
+				} else if(href && (href === currentPath || (href !== '/' && currentPath.startsWith(href)))){
+					a.classList.add('active');
+				} else if((currentPath === '' || currentPath === '/') && href === '/'){
+					a.classList.add('active');
+				}
+			});
+		}
+		markActive();
+		window.addEventListener('hashchange', markActive);
+
+		function setMenu(open){
+			burger.setAttribute('aria-expanded', String(open));
+			list.classList.toggle('open', open);
+			burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+			if(overlay){ overlay.hidden = !open; }
+			document.documentElement.style.overflow = open ? 'hidden' : '';
+		}
+
+		burger.addEventListener('click', ()=>{
+			const expanded = burger.getAttribute('aria-expanded') === 'true';
+			setMenu(!expanded);
+		});
+
+		if(overlay){ overlay.addEventListener('click', ()=> setMenu(false)); }
+
+		window.addEventListener('resize', ()=>{ resize(); createParticles(); });
+		window.addEventListener('scroll', onScroll, { passive:true });
+
+		resize(); createParticles(); draw(); onScroll();
+
+		// Keyboard trap prevention for mobile menu
+			document.addEventListener('keydown', (e)=>{
+			if(e.key === 'Escape'){
+					setMenu(false);
+			}
+		});
+	})();
+</script>
+
