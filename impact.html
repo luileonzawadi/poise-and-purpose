@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Impact - Poise & Purpose Kenya</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-brown: #8B4513;
+            --dark-brown: #5D4037;
+            --light-brown: #D7CCC8;
+            --gold: #FFD700;
+            --dark-gold: #B8860B;
+            --cream: #FFF8E1;
+            --dark-cream: #F5F5DC;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            padding-top: 78px;
+        }
+
+        /* Navbar and Footer styles - to be inherited */
+        .navbar, .footer {
+            display: none;
+        }
+
+         .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 2;
+            padding: 0 20px;
+            overflow: hidden;
+        }
+
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 900px;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+            color: #e6d4ff;
+            font-weight: 400;
+            max-width: 700px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #D4AF37, #FFD700);
+            color: #000;
+            border: none;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(212, 175, 55, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #FFD700;
+            border: 2px solid #D4AF37;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .logo {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #FFD700;
+            z-index: 3;
+        }
+
+        .logo span {
+            color: #fff;
+        }
+
+        /* 3D Text Styles */
+        .text-3d {
+            position: relative;
+            display: inline-block;
+            transform-style: preserve-3d;
+            perspective: 500px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .text-3d span {
+            display: inline-block;
+            transform: translateZ(20px);
+            text-shadow: 
+                1px 1px 0 #D4AF37,
+                2px 2px 0 #B8860B,
+                3px 3px 0 #8B6914,
+                4px 4px 0 #654321,
+                5px 5px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotateX(5deg); }
+            50% { transform: translateY(-10px) rotateX(5deg); }
+        }
+
+        /* Color animation for 3D text */
+        .color-change {
+            animation: colorShift 8s infinite alternate;
+        }
+
+        @keyframes colorShift {
+            0% { color: #D4AF37; }
+            25% { color: #FFD700; }
+            50% { color: #FFEC8B; }
+            75% { color: #F0E68C; }
+            100% { color: #DAA520; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .logo {
+                font-size: 1.4rem;
+                top: 20px;
+                left: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        
+
+        /* Stats Section - Dark Theme */
+        .stats-section {
+            background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
+            padding: 80px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            border-top: 5px solid #D4AF37;
+            backdrop-filter: blur(5px);
+            color: #D4AF37;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #D4AF37, #FFD700);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: #FFEC8B;
+            font-weight: 600;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #FFD700;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #D4AF37, #FFD700);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        /* Stories Section - Dark Theme */
+        .stories-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+        }
+
+        .stories-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .story-card {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 30px;
+            color: #F0E68C;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .story-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .story-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .story-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: #000;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .story-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #FFD700;
+        }
+
+        .story-location {
+            color: var(--light-brown);
+            font-size: 0.9rem;
+        }
+
+        .story-quote {
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 20px;
+            border-left: 3px solid #D4AF37;
+        }
+
+        .story-impact {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .impact-before, .impact-after {
+            text-align: center;
+            flex: 1;
+        }
+
+        .impact-label {
+            font-size: 0.8rem;
+            color: var(--light-brown);
+            margin-bottom: 5px;
+        }
+
+        .impact-value {
+            font-weight: 600;
+            color: #FFD700;
+        }
+
+        /* Gallery Section - Dark Theme */
+        .gallery-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
+        }
+
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            height: 250px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: #FFEC8B;
+            padding: 10px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        /* Timeline Section - Dark Theme */
+        .timeline-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+        }
+
+        .timeline {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: linear-gradient(to bottom, #D4AF37, #FFD700);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            margin-bottom: 50px;
+            position: relative;
+            width: 50%;
+            padding: 0 40px;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-content {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: #F0E68C;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
+        }
+
+        .timeline-year {
+            font-weight: 700;
+            color: #FFD700;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            top: 20px;
+            right: -10px;
+            width: 20px;
+            height: 20px;
+            background: #D4AF37;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -10px;
+        }
+
+        /* Partners Section - Dark Theme */
+        .partners-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
+        }
+
+        .partners-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            gap: 40px;
+        }
+
+        .partner-logo {
+            height: 80px;
+            width: 150px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #FFEC8B;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .partner-logo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
+        }
+
+        /* CTA Section - Dark Theme */
+        .cta-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            text-align: center;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #FFD700;
+        }
+
+        .cta-text {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: #F0E68C;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #D4AF37, #FFD700);
+            color: #000;
+            border: none;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(255, 215, 0, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #FFD700;
+            border: 2px solid #D4AF37;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 215, 0, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Simple logo text (from test hero) */
+        .logo {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #FFD700;
+            z-index: 3;
+        }
+        .logo span { color: #fff; }
+
+        .contact-section {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--dark-brown) 0%, var(--primary-brown) 100%);
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--cream);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            color: var(--cream);
+        }
+
+        .contact-item strong {
+            color: var(--gold);
+        }
+
+        /* Animations */
+        @keyframes float3D {
+            0%, 100% {
+                transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+            }
+            25% {
+                transform: translateY(-10px) rotateX(5deg) rotateY(2deg);
+            }
+            50% {
+                transform: translateY(-15px) rotateX(0deg) rotateY(-2deg);
+            }
+            75% {
+                transform: translateY(-5px) rotateX(-3deg) rotateY(1deg);
+            }
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 
+                    0 0 20px rgba(255, 215, 0, 0.5),
+                    0 0 40px rgba(255, 215, 0, 0.3),
+                    0 0 60px rgba(255, 215, 0, 0.2);
+            }
+            100% {
+                text-shadow: 
+                    0 0 30px rgba(255, 215, 0, 0.8),
+                    0 0 60px rgba(255, 215, 0, 0.5),
+                    0 0 90px rgba(255, 215, 0, 0.3);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 
+                    0 8px 25px rgba(255, 215, 0, 0.4),
+                    0 0 0 2px rgba(255, 215, 0, 0.2),
+                    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+            }
+            50% {
+                transform: scale(1.02);
+                box-shadow: 
+                    0 10px 30px rgba(255, 215, 0, 0.5),
+                    0 0 0 3px rgba(255, 215, 0, 0.3),
+                    inset 0 3px 0 rgba(255, 255, 255, 0.4);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .timeline:before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 20px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-dot {
+                left: 20px !important;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="site-header"></div>
+
+    <div id="canvas-container"></div>
+    
+    <div class="hero">
+        <div class="hero-content">
+            <h1>
+                <span class="text-3d color-change">
+                    Our impact is real and you can be part of the next chapter.
+                </span>
+            </h1>
+            
+            <div class="buttons">
+                <button class="btn btn-primary">Join Our Movement</button>
+                <button class="btn btn-secondary">Learn More</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <h2 class="section-title">Our Impact in Numbers</h2>
+        <div class="stats-container">
+            <div class="stat-card">
+                <span class="stat-number" data-count="5200">0</span>
+                <div class="stat-label">Women Trained</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" data-count="1400">0</span>
+                <div class="stat-label">Businesses Launched</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" data-count="230">0</span>
+                <div class="stat-label">Communities Impacted</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" data-count="87">0</span>
+                <div class="stat-label">Employment Success Rate</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stories Section -->
+    <section class="stories-section">
+        <h2 class="section-title" style="color: white;">Success Stories</h2>
+        <div class="stories-container">
+            <div class="story-card">
+                <div class="story-header">
+                    <div class="story-avatar">A</div>
+                    <div>
+                        <div class="story-name">Amina</div>
+                        <div class="story-location">Nairobi, Kenya</div>
+                    </div>
+                </div>
+                <p class="story-quote">"I started with no income — today I employ 6 women in my own business. Poise & Purpose gave me the skills and confidence to become an entrepreneur."</p>
+                <div class="story-impact">
+                    <div class="impact-before">
+                        <div class="impact-label">Before</div>
+                        <div class="impact-value">No Income</div>
+                    </div>
+                    <div class="impact-after">
+                        <div class="impact-label">After</div>
+                        <div class="impact-value">6 Employees</div>
+                    </div>
+                </div>
+            </div>
+            <div class="story-card">
+                <div class="story-header">
+                    <div class="story-avatar">F</div>
+                    <div>
+                        <div class="story-name">Faith</div>
+                        <div class="story-location">Kisumu, Kenya</div>
+                    </div>
+                </div>
+                <p class="story-quote">"The mentorship program transformed my life. I went from being shy and uncertain to leading community projects that impact hundreds of families."</p>
+                <div class="story-impact">
+                    <div class="impact-before">
+                        <div class="impact-label">Before</div>
+                        <div class="impact-value">Shy & Uncertain</div>
+                    </div>
+                    <div class="impact-after">
+                        <div class="impact-label">After</div>
+                        <div class="impact-value">Community Leader</div>
+                    </div>
+                </div>
+            </div>
+            <div class="story-card">
+                <div class="story-header">
+                    <div class="story-avatar">M</div>
+                    <div>
+                        <div class="story-name">Makena</div>
+                        <div class="story-location">Mombasa, Kenya</div>
+                    </div>
+                </div>
+                <p class="story-quote">"With the funding and business training I received, I expanded my small craft business. Now I export to three countries and mentor other young women."</p>
+                <div class="story-impact">
+                    <div class="impact-before">
+                        <div class="impact-label">Before</div>
+                        <div class="impact-value">Local Crafts</div>
+                    </div>
+                    <div class="impact-after">
+                        <div class="impact-label">After</div>
+                        <div class="impact-value">Export Business</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section">
+        <h2 class="section-title">Moments of Impact</h2>
+        <div class="gallery-container">
+            <div class="gallery-item">
+                <div class="gallery-img" style="background: #8B4513;"></div>
+                <div class="gallery-caption">Leadership Training Workshop</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-img" style="background: #A0522D;"></div>
+                <div class="gallery-caption">Business Grant Ceremony</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-img" style="background: #CD853F;"></div>
+                <div class="gallery-caption">Community Outreach Program</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-img" style="background: #D2691E;"></div>
+                <div class="gallery-caption">Mentorship Session</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-img" style="background: #8B4513;"></div>
+                <div class="gallery-caption">Graduation Celebration</div>
+            </div>
+            <div class="gallery-item">
+                <div class="gallery-img" style="background: #A0522D;"></div>
+                <div class="gallery-caption">Women's Entrepreneurship Fair</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+        <h2 class="section-title" style="color: white;">Our Journey</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2018</div>
+                    <p>Launched our first leadership training cohort with 50 young women in Nairobi</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2019</div>
+                    <p>Expanded to 3 regions and empowered 500+ women with business funding</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2021</div>
+                    <p>Launched digital skills program and reached women in 5 counties across Kenya</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2023</div>
+                    <p>Celebrated reaching 10,000+ beneficiaries and expanding mentorship programs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners-section">
+        <h2 class="section-title">Supported By</h2>
+        <div class="partners-container">
+            <div class="partner-logo">Global Women Fund</div>
+            <div class="partner-logo">Kenya Empowerment Initiative</div>
+            <div class="partner-logo">African Development Trust</div>
+            <div class="partner-logo">Women Forward Alliance</div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2 class="cta-title">Join Our Movement</h2>
+            <p class="cta-text">Be part of the change. Your support helps us empower more young women to become leaders in their communities.</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary">Donate to Expand Our Impact</button>
+                <button class="btn btn-secondary">Become a Volunteer</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer will be inherited -->
+    <div class="footer"></div>
+
+   
+
+    <!-- Contact Section -->
+    
+    
+    <div id="site-footer"></div>
+    <script>
+        // Include header and footer components and execute their scripts
+        function injectHTML(target, html){
+            target.innerHTML = html;
+            const scripts = Array.from(target.querySelectorAll('script'));
+            scripts.forEach((old)=>{
+                try{
+                    const fresh = document.createElement('script');
+                    Array.from(old.attributes).forEach(attr => fresh.setAttribute(attr.name, attr.value));
+                    if(old.src){ fresh.src = old.src; fresh.async = false; } else { fresh.text = old.textContent || ''; }
+                    const parent = old.parentNode || target;
+                    parent.replaceChild(fresh, old);
+                }catch(e){ console.error('Script injection failed:', e); }
+            });
+        }
+        Promise.all([
+            fetch('components/header.html').then(r=>r.text()),
+            fetch('components/footer.html').then(r=>r.text())
+        ]).then(([h,f])=>{
+            injectHTML(document.getElementById('site-header'), h);
+            injectHTML(document.getElementById('site-footer'), f);
+        }).catch(err=>console.error('Failed to load components:', err));
+    </script>
+    <script>
+        // Three.js scene setup
+        let scene, camera, renderer;
+        let shapes = [];
+        let particles = [];
+        
+        // Initialize the scene
+        function init() {
+            // Create scene
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x0a0a0a);
+            scene.fog = new THREE.Fog(0x0a0a0a, 10, 30);
+            
+            // Create camera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 15;
+            
+            // Create renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x000000, 0);
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
+            
+            // Add lights
+            const ambientLight = new THREE.AmbientLight(0xD4AF37, 0.4);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xFFD700, 0.8);
+            directionalLight.position.set(1, 1, 1);
+            scene.add(directionalLight);
+            
+            const pointLight = new THREE.PointLight(0xDAA520, 0.6, 50);
+            pointLight.position.set(0, 10, 10);
+            scene.add(pointLight);
+            
+            // Create love and signature shapes
+            createLoveAndSignatureShapes();
+            
+            // Create particle system
+            createParticles();
+            
+            // Event listeners
+            window.addEventListener('resize', onWindowResize);
+            
+            // Start animation
+            animate();
+        }
+        
+        function createLoveAndSignatureShapes() {
+            // Purple, pink, and golden colors
+            const colors = [
+                0xD4AF37, 0xFFD700, 0xDAA520, // Gold shades
+                0x9B30FF, 0x8A2BE2, 0x9370DB, // Purple shades
+                0xFF69B4, 0xFF1493, 0xFF6EB4, // Pink shades
+                0xFFEC8B, 0xF0E68C, 0xEEE8AA  // Light gold shades
+            ];
+            
+            // Create heart shapes (love)
+            for (let i = 0; i < 15; i++) {
+                const geometry = createHeartGeometry();
+                const material = new THREE.MeshPhongMaterial({
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    transparent: true,
+                    opacity: 0.7,
+                    shininess: 80,
+                    wireframe: Math.random() > 0.7
+                });
+                
+                const heart = new THREE.Mesh(geometry, material);
+                
+                // Position in a sphere formation
+                const radius = 8 + Math.random() * 8;
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.random() * Math.PI;
+                
+                heart.position.x = radius * Math.sin(phi) * Math.cos(theta);
+                heart.position.y = radius * Math.sin(phi) * Math.sin(theta);
+                heart.position.z = radius * Math.cos(phi);
+                
+                // Random rotation
+                heart.rotation.x = Math.random() * Math.PI;
+                heart.rotation.y = Math.random() * Math.PI;
+                
+                // Random scale
+                const scale = 0.8 + Math.random() * 1.2;
+                heart.scale.set(scale, scale, scale);
+                
+                // Store animation properties
+                heart.userData = {
+                    speed: {
+                        x: (Math.random() - 0.5) * 0.005,
+                        y: (Math.random() - 0.5) * 0.005,
+                        z: (Math.random() - 0.5) * 0.005
+                    },
+                    float: Math.random() * 0.01,
+                    floatOffset: Math.random() * Math.PI * 2,
+                    originalPosition: {
+                        x: heart.position.x,
+                        y: heart.position.y,
+                        z: heart.position.z
+                    }
+                };
+                
+                scene.add(heart);
+                shapes.push(heart);
+            }
+            
+            // Create signature-like ribbon shapes
+            for (let i = 0; i < 10; i++) {
+                const geometry = createRibbonGeometry();
+                const material = new THREE.MeshPhongMaterial({
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    transparent: true,
+                    opacity: 0.6,
+                    shininess: 60,
+                    wireframe: Math.random() > 0.8
+                });
+                
+                const ribbon = new THREE.Mesh(geometry, material);
+                
+                // Position in a sphere formation
+                const radius = 8 + Math.random() * 8;
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.random() * Math.PI;
+                
+                ribbon.position.x = radius * Math.sin(phi) * Math.cos(theta);
+                ribbon.position.y = radius * Math.sin(phi) * Math.sin(theta);
+                ribbon.position.z = radius * Math.cos(phi);
+                
+                // Random rotation
+                ribbon.rotation.x = Math.random() * Math.PI;
+                ribbon.rotation.y = Math.random() * Math.PI;
+                ribbon.rotation.z = Math.random() * Math.PI;
+                
+                // Random scale
+                const scale = 0.5 + Math.random() * 1.0;
+                ribbon.scale.set(scale, scale, scale);
+                
+                // Store animation properties
+                ribbon.userData = {
+                    speed: {
+                        x: (Math.random() - 0.5) * 0.008,
+                        y: (Math.random() - 0.5) * 0.008,
+                        z: (Math.random() - 0.5) * 0.008
+                    },
+                    float: Math.random() * 0.015,
+                    floatOffset: Math.random() * Math.PI * 2,
+                    originalPosition: {
+                        x: ribbon.position.x,
+                        y: ribbon.position.y,
+                        z: ribbon.position.z
+                    }
+                };
+                
+                scene.add(ribbon);
+                shapes.push(ribbon);
+            }
+            
+            // Add some connecting lines between shapes (community)
+            for (let i = 0; i < 15; i++) {
+                const index1 = Math.floor(Math.random() * shapes.length);
+                const index2 = Math.floor(Math.random() * shapes.length);
+                
+                if (index1 !== index2) {
+                    const geometry = new THREE.BufferGeometry().setFromPoints([
+                        new THREE.Vector3(
+                            shapes[index1].position.x,
+                            shapes[index1].position.y,
+                            shapes[index1].position.z
+                        ),
+                        new THREE.Vector3(
+                            shapes[index2].position.x,
+                            shapes[index2].position.y,
+                            shapes[index2].position.z
+                        )
+                    ]);
+                    
+                    const material = new THREE.LineBasicMaterial({
+                        color: colors[Math.floor(Math.random() * colors.length)],
+                        transparent: true,
+                        opacity: 0.3
+                    });
+                    
+                    const line = new THREE.Line(geometry, material);
+                    scene.add(line);
+                    shapes.push(line);
+                }
+            }
+        }
+        
+        // Create a heart geometry
+        function createHeartGeometry() {
+            const shape = new THREE.Shape();
+            const x = 0, y = 0;
+            
+            shape.moveTo(x + 0.25, y + 0.25);
+            shape.bezierCurveTo(x + 0.25, y + 0.25, x + 0.2, y, x, y);
+            shape.bezierCurveTo(x - 0.6, y, x - 0.6, y + 0.7, x - 0.6, y + 0.7);
+            shape.bezierCurveTo(x - 0.6, y + 1.1, x - 0.3, y + 1.54, x + 0.25, y + 1.9);
+            shape.bezierCurveTo(x + 0.8, y + 1.54, x + 1.1, y + 1.1, x + 1.1, y + 0.7);
+            shape.bezierCurveTo(x + 1.1, y + 0.7, x + 1.1, y, x + 0.5, y);
+            shape.bezierCurveTo(x + 0.35, y, x + 0.25, y + 0.25, x + 0.25, y + 0.25);
+            
+            const extrudeSettings = {
+                depth: 0.2,
+                bevelEnabled: true,
+                bevelSegments: 2,
+                steps: 2,
+                bevelSize: 0.1,
+                bevelThickness: 0.1
+            };
+            
+            return new THREE.ExtrudeGeometry(shape, extrudeSettings);
+        }
+        
+        // Create ribbon/signature-like geometry
+        function createRibbonGeometry() {
+            const curve = new THREE.CatmullRomCurve3([
+                new THREE.Vector3(0, 0, 0),
+                new THREE.Vector3(1, 0.5, 0.2),
+                new THREE.Vector3(2, 0, 0.4),
+                new THREE.Vector3(1.5, -0.5, 0.6),
+                new THREE.Vector3(0.5, -0.3, 0.8),
+                new THREE.Vector3(0, 0, 1)
+            ]);
+            
+            const tubeGeometry = new THREE.TubeGeometry(curve, 20, 0.1, 8, false);
+            return tubeGeometry;
+        }
+        
+        // Create particle system with purple, pink, and gold colors
+        function createParticles() {
+            const particleCount = 500;
+            const particles = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+            const colors = new Float32Array(particleCount * 3);
+            
+            for (let i = 0; i < particleCount; i++) {
+                const i3 = i * 3;
+                
+                // Random position in a sphere
+                const radius = 15 + Math.random() * 10;
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.random() * Math.PI;
+                
+                positions[i3] = radius * Math.sin(phi) * Math.cos(theta);
+                positions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+                positions[i3 + 2] = radius * Math.cos(phi);
+                
+                // Purple, pink, and gold colors
+                const colorType = Math.floor(Math.random() * 3);
+                if (colorType === 0) {
+                    // Gold particles
+                    colors[i3] = 0.8 + Math.random() * 0.2; // R
+                    colors[i3 + 1] = 0.7 + Math.random() * 0.3; // G
+                    colors[i3 + 2] = 0.1 + Math.random() * 0.2; // B
+                } else if (colorType === 1) {
+                    // Purple particles
+                    colors[i3] = 0.6 + Math.random() * 0.2; // R
+                    colors[i3 + 1] = 0.2 + Math.random() * 0.2; // G
+                    colors[i3 + 2] = 0.8 + Math.random() * 0.2; // B
+                } else {
+                    // Pink particles
+                    colors[i3] = 0.9 + Math.random() * 0.1; // R
+                    colors[i3 + 1] = 0.4 + Math.random() * 0.2; // G
+                    colors[i3 + 2] = 0.6 + Math.random() * 0.2; // B
+                }
+            }
+            
+            particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            
+            const particleMaterial = new THREE.PointsMaterial({
+                size: 0.1,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.6
+            });
+            
+            const particleSystem = new THREE.Points(particles, particleMaterial);
+            scene.add(particleSystem);
+            
+            // Store for animation
+            particleSystem.userData = {
+                originalPositions: positions.slice()
+            };
+            
+            shapes.push(particleSystem);
+        }
+        
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Animate shapes
+            const time = Date.now() * 0.001;
+            
+            shapes.forEach(shape => {
+                if (shape.userData && shape.userData.originalPosition) {
+                    // Rotation
+                    shape.rotation.x += shape.userData.speed.x;
+                    shape.rotation.y += shape.userData.speed.y;
+                    shape.rotation.z += shape.userData.speed.z;
+                    
+                    // Floating motion around original position
+                    shape.position.x = shape.userData.originalPosition.x + Math.sin(time * 0.5 + shape.userData.floatOffset) * 0.5;
+                    shape.position.y = shape.userData.originalPosition.y + Math.cos(time * 0.7 + shape.userData.floatOffset) * 0.5;
+                    shape.position.z = shape.userData.originalPosition.z + Math.sin(time * 0.3 + shape.userData.floatOffset) * 0.5;
+                    
+                    // Subtle pulsing scale
+                    const scale = 0.8 + Math.sin(time * 0.8 + shape.userData.floatOffset) * 0.2;
+                    shape.scale.set(scale, scale, scale);
+                }
+                
+                // Animate particles
+                if (shape instanceof THREE.Points && shape.userData.originalPositions) {
+                    const positions = shape.geometry.attributes.position.array;
+                    const originalPositions = shape.userData.originalPositions;
+                    
+                    for (let i = 0; i < positions.length; i += 3) {
+                        positions[i] = originalPositions[i] + Math.sin(time * 0.5 + i) * 0.1;
+                        positions[i + 1] = originalPositions[i + 1] + Math.cos(time * 0.7 + i) * 0.1;
+                        positions[i + 2] = originalPositions[i + 2] + Math.sin(time * 0.3 + i) * 0.1;
+                    }
+                    
+                    shape.geometry.attributes.position.needsUpdate = true;
+                }
+            });
+            
+            // Rotate camera slowly
+            camera.position.x = Math.sin(time * 0.1) * 5;
+            camera.position.z = 15 + Math.cos(time * 0.1) * 2;
+            camera.lookAt(scene.position);
+            
+            renderer.render(scene, camera);
+        }
+        
+        // Initialize the scene when the page loads
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
