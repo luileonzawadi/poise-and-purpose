@@ -13,19 +13,19 @@
 		body{ padding-top:clamp(60px, 10vw, 78px); }
 		main{ min-height:60vh; padding:clamp(16px, 4vw, 24px); max-width:1200px; margin:0 auto; }
 		.hero{
-			position:relative; overflow:hidden; border:1px solid rgba(255,255,255,.12); border-radius:clamp(12px, 2vw, 16px); padding:clamp(24px, 6vw, 48px) clamp(16px, 4vw, 20px); margin-top:16px;
-			background: linear-gradient(180deg, rgba(155,92,246,.10), rgba(78,209,248,.08)), rgba(255,255,255,.02);
+			position:relative; overflow:hidden; border:1px solid rgba(251,191,36,.2); border-radius:clamp(12px, 2vw, 16px); padding:clamp(24px, 6vw, 48px) clamp(16px, 4vw, 20px); margin-top:16px;
+			background: linear-gradient(180deg, rgba(251,191,36,.08), rgba(155,92,246,.06)), rgba(255,255,255,.02);
 			box-shadow: 0 18px 60px rgba(0,0,0,.35);
 		}
 		.hero h1{ margin:0 0 10px 0; font-size: clamp(24px, 6vw, 44px); }
 		.hero p{ margin:0; color: rgba(234,240,255,.8); max-width: 62ch; font-size: clamp(14px, 2.5vw, 16px); }
-		.section-title{ font-size:clamp(20px, 4vw, 24px); margin:clamp(32px, 6vw, 48px) 0 clamp(16px, 3vw, 24px) 0; color:#9b5cf6; }
+		.section-title{ font-size:clamp(20px, 4vw, 24px); margin:clamp(32px, 6vw, 48px) 0 clamp(16px, 3vw, 24px) 0; color:#fbbf24; }
 		.events-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap:clamp(16px, 3vw, 24px); margin-bottom:clamp(32px, 6vw, 48px); }
 		.event-card{
 			border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:clamp(16px, 4vw, 24px);
 			background: rgba(255,255,255,.02); transition: all 0.2s ease; position:relative;
 		}
-		.event-card:hover{ border-color: rgba(155,92,246,.4); transform: translateY(-2px); }
+		.event-card:hover{ border-color: rgba(251,191,36,.4); transform: translateY(-2px); }
 		.event-card.upcoming{ border-color: rgba(34,197,94,.3); }
 		.event-card.past{ opacity:0.8; }
 		.event-date{ color:#4ade80; font-weight:500; font-size:clamp(12px, 2.5vw, 14px); margin-bottom:8px; }
@@ -33,15 +33,15 @@
 		.event-location{ color: rgba(234,240,255,.6); font-size:clamp(12px, 2.5vw, 14px); margin-bottom:12px; }
 		.event-card p{ margin:0 0 16px 0; color: rgba(234,240,255,.8); line-height:1.5; font-size:clamp(14px, 2.5vw, 16px); }
 		.event-status{ position:absolute; top:clamp(12px, 3vw, 16px); right:clamp(12px, 3vw, 16px); padding:4px 8px; border-radius:12px; font-size:clamp(10px, 2vw, 12px); font-weight:500; }
-		.event-status.upcoming{ background: rgba(34,197,94,.2); color:#86efac; }
+		.event-status.upcoming{ background: rgba(251,191,36,.2); color:#fbbf24; }
 		.event-status.past{ background: rgba(107,114,128,.2); color:#d1d5db; }
 		.register-btn{
-			display:inline-block; padding:clamp(6px, 2vw, 8px) clamp(12px, 3vw, 16px); background:#9b5cf6; color:white; text-decoration:none;
-			border-radius:6px; font-size:clamp(12px, 2.5vw, 14px); font-weight:500; transition: background 0.2s ease;
+			display:inline-block; padding:clamp(6px, 2vw, 8px) clamp(12px, 3vw, 16px); background:linear-gradient(135deg, #fbbf24, #f59e0b); color:#0b0f1e; text-decoration:none;
+			border-radius:6px; font-size:clamp(12px, 2.5vw, 14px); font-weight:600; transition: all 0.2s ease;
 		}
-		.register-btn:hover{ background:#8b5cf6; }
+		.register-btn:hover{ background:linear-gradient(135deg, #f59e0b, #d97706); transform: translateY(-1px); }
 		.register-btn.disabled{ background: rgba(107,114,128,.3); color: rgba(234,240,255,.5); pointer-events:none; }
-		.event-poster{ width:100%; height:clamp(150px, 25vw, 200px); background: linear-gradient(135deg, rgba(155,92,246,.2), rgba(78,209,248,.2)); border-radius:8px; margin-bottom:16px; display:flex; align-items:center; justify-content:center; color: rgba(234,240,255,.6); font-size:clamp(12px, 2.5vw, 14px); text-align:center; }
+		.event-poster{ width:100%; height:clamp(150px, 25vw, 200px); background: linear-gradient(135deg, rgba(251,191,36,.15), rgba(155,92,246,.1)); border-radius:8px; margin-bottom:16px; display:flex; align-items:center; justify-content:center; color: rgba(234,240,255,.6); font-size:clamp(12px, 2.5vw, 14px); text-align:center; }
 		@media (max-width: 480px) {
 			.event-status{ position:static; display:inline-block; margin-bottom:8px; }
 			.event-card{ padding:16px; }
