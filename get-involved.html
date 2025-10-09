@@ -34,8 +34,26 @@
         .hero .lead { max-width: 840px; margin: .75rem auto 0; text-align:center; color: #e6d4ff; }
 
         /* Cards */
-        .card { background: rgba(0,0,0,0.55); border:1px solid rgba(212,175,55,.28); border-radius: 14px; padding: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
-        .grid-4 { display: grid; gap: 1.25rem; grid-template-columns: repeat(4, minmax(0,1fr)); }
+        .card { 
+            background: rgba(0,0,0,0.55); 
+            border:1px solid rgba(212,175,55,.28); 
+            border-radius: 14px; 
+            padding: 1.5rem; 
+            box-shadow: 0 10px 30px rgba(0,0,0,.25);
+            transform-style: preserve-3d;
+            opacity: 0;
+            transform: translateY(24px) translateZ(-120px) scale(.92) rotateX(8deg);
+            transition: transform .7s cubic-bezier(.2,.7,.2,1), opacity .6s ease, box-shadow .3s ease, border-color .3s ease;
+        }
+        .card.is-visible {
+            transform: translateZ(0) scale(1);
+            opacity: 1;
+        }
+        .card:hover {
+            transform: translateZ(20px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(212,175,55,.3), 0 0 20px rgba(255,215,0,.2);
+        }
+        .grid-4 { display: grid; gap: 1.25rem; grid-template-columns: repeat(4, minmax(0,1fr)); perspective: 1000px; perspective-origin: 50% 40%; }
 
         /* CTAs */
         .cta-row{ display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1rem; justify-content:center; }
@@ -51,6 +69,12 @@
             color:#FFEC8B; background: rgba(0,0,0,.35); border:1px solid rgba(212,175,55,.28);
         }
 
+        /* Staggered animation delays */
+        .grid-4 .card:nth-child(1) { transition-delay: 0.1s; }
+        .grid-4 .card:nth-child(2) { transition-delay: 0.2s; }
+        .grid-4 .card:nth-child(3) { transition-delay: 0.3s; }
+        .grid-4 .card:nth-child(4) { transition-delay: 0.4s; }
+
         /* Responsive */
         @media (max-width: 992px){ 
             .grid-4{ grid-template-columns: repeat(2, minmax(0,1fr)); } 
@@ -58,6 +82,11 @@
         @media (max-width: 640px){ 
             .grid-4{ grid-template-columns: 1fr; } 
             .title{ font-size:1.8rem; } 
+        }
+        
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce){
+            .card{ transition:none; transform:none !important; opacity:1 !important; }
         }
     </style>
 </head>
@@ -132,6 +161,64 @@
             injectHTML(document.getElementById('site-header'), h);
             injectHTML(document.getElementById('site-footer'), f);
         }).catch(err=>console.error('Failed to load components:', err));
+
+        // 3D scroll animation for cards (scroll-linked subtle zoom/tilt)
+        document.addEventListener('DOMContentLoaded', function(){
+            const cards = Array.from(document.querySelectorAll('#involvement-options .card'));
+            if(cards.length === 0) return;
+
+            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if(prefersReduced){
+                cards.forEach(c=>{ c.style.opacity = '1'; c.style.transform = 'none'; });
+                return;
+            }
+
+            const revealObserver = new IntersectionObserver((entries, obs)=>{
+                entries.forEach(entry=>{
+                    if(entry.isIntersecting){
+                        entry.target.classList.add('is-visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+
+            cards.forEach(c=> revealObserver.observe(c));
+
+            function updateTransforms(){
+                const vh = window.innerHeight;
+                const centerY = vh * 0.55; // a touch below center feels nicer
+                for(const card of cards){
+                    const rect = card.getBoundingClientRect();
+                    // progress: 0 at bottom edge entering, 1 near center line
+                    const mid = rect.top + rect.height/2;
+                    const dist = Math.abs(mid - centerY);
+                    const norm = Math.max(0, 1 - dist / (vh * 0.9)); // clamp 0..1
+
+                    // Map to transforms: deeper Z and tilt when far; settle when near center
+                    const z = -120 + norm * 120; // -120 → 0
+                    const y = 24 - norm * 24;     // 24px → 0
+                    const rx = 8 - norm * 8;      // 8deg → 0
+                    const scale = 0.92 + norm * 0.08; // .92 → 1
+
+                    card.style.transform = `translateY(${y}px) translateZ(${z}px) rotateX(${rx}deg) scale(${scale})`;
+                    card.style.opacity = String(0.2 + norm * 0.8);
+                }
+                requestAnimationFrameQueued = false;
+            }
+
+            let requestAnimationFrameQueued = false;
+            function onScroll(){
+                if(!requestAnimationFrameQueued){
+                    requestAnimationFrameQueued = true;
+                    requestAnimationFrame(updateTransforms);
+                }
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', onScroll);
+            // initial
+            onScroll();
+        });
     </script>
 </body>
 </html>
