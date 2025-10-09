@@ -80,6 +80,7 @@
             max-width: 900px;
             background:  #FFD700;
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
@@ -507,6 +508,7 @@
         .hero h1 .gold-animated {
             background: none;
             -webkit-background-clip: initial;
+            background-clip: initial;
             -webkit-text-fill-color: currentColor;
             animation: goldShift 6s infinite alternate;
             text-shadow: 0 5px 15px rgba(0,0,0,0.35);
@@ -728,25 +730,11 @@
                     <p>Together, we can build a future where every girl and woman has the opportunity to lead, succeed, and inspire others.</p>
                 </div>
                 <div class="about-icons">
-                    <div class="icon-card">
-                        <i class="fas fa-heart"></i>
-                        <h3>Volunteer</h3>
-                        <p>Share your skills and time with our community</p>
-                    </div>
-                    <div class="icon-card">
-                        <i class="fas fa-donate"></i>
-                        <h3>Donate</h3>
-                        <p>Support our programs and initiatives</p>
-                    </div>
-                    <div class="icon-card">
-                        <i class="fas fa-users"></i>
-                        <h3>Join Programs</h3>
-                        <p>Participate in our empowerment activities</p>
-                    </div>
-                    <div class="icon-card">
-                        <i class="fas fa-share-alt"></i>
-                        <h3>Spread the Word</h3>
-                        <p>Help us reach more women and girls</p>
+                    <div class="icon-card" style="grid-column: 1 / -1; text-align: center;">
+                        <i class="fas fa-hands-helping" style="font-size: 3rem; margin-bottom: 1.5rem;"></i>
+                        <h3>Ready to Make a Difference?</h3>
+                        <p>Discover all the ways you can get involved and help us empower young women across Kenya.</p>
+                        <a href="get-involved.html" class="btn btn-primary" style="margin-top: 1rem;">Learn How to Get Involved</a>
                     </div>
                 </div>
             </div>

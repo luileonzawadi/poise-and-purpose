@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Involved - Poise & Purpose Kenya</title>
+    <link rel="icon" href="images/logo.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8a2be2;
+            --secondary: #00bfff;
+            --accent: #ff69b4;
+            --dark: #0f0f1e;
+            --darker: #070711;
+            --light: #f8f8ff;
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --gold: #FFD700;
+            --gold2: #D4AF37;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background: var(--darker); color: var(--light); line-height: 1.7; padding-top: 78px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.25rem; }
+        section { padding: 4.5rem 0; position: relative; scroll-margin-top: 110px; }
+        .title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 2.2rem; text-align: center; margin-bottom: 2.5rem; color: var(--gold); position: relative; }
+        .title::after { content:""; position:absolute; bottom:-10px; left:50%; transform:translateX(-50%); width:80px; height:4px; background:linear-gradient(90deg, var(--gold2), var(--gold)); border-radius:2px; }
+
+        /* Hero */
+        .hero { padding: 4rem 0 2rem; background: linear-gradient(135deg,#1a1a1a,#2d2d2d); }
+        .hero .lead { max-width: 840px; margin: .75rem auto 0; text-align:center; color: #e6d4ff; }
+
+        /* Cards */
+        .card { background: rgba(0,0,0,0.55); border:1px solid rgba(212,175,55,.28); border-radius: 14px; padding: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+        .grid-4 { display: grid; gap: 1.25rem; grid-template-columns: repeat(4, minmax(0,1fr)); }
+
+        /* CTAs */
+        .cta-row{ display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1rem; justify-content:center; }
+        .btn-cta{
+            display:inline-flex; align-items:center; justify-content:center;
+            padding:.6rem 1rem; border-radius:999px; text-decoration:none; cursor:pointer;
+            color:#0b0b0b; background: linear-gradient(90deg, var(--gold2), var(--gold));
+            border:1px solid rgba(212,175,55,.45);
+            transition: transform .2s ease, box-shadow .25s ease, background .25s ease;
+        }
+        .btn-cta:hover, .btn-cta:focus-visible{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(212,175,55,.22); outline:none; }
+        .btn-ghost{
+            color:#FFEC8B; background: rgba(0,0,0,.35); border:1px solid rgba(212,175,55,.28);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px){ 
+            .grid-4{ grid-template-columns: repeat(2, minmax(0,1fr)); } 
+        }
+        @media (max-width: 640px){ 
+            .grid-4{ grid-template-columns: 1fr; } 
+            .title{ font-size:1.8rem; } 
+        }
+    </style>
+</head>
+<body>
+    <div id="site-header"></div>
+
+    <main id="main" tabindex="-1">
+        <section class="hero">
+            <div class="container">
+                <h1 class="title">Get Involved</h1>
+                <p class="lead">Ready to make a difference? Join our community of empowered women and help us create lasting change. Whether you want to volunteer, donate, or participate in our programs, there's a place for you.</p>
+            </div>
+        </section>
+
+        <section id="involvement-options" aria-labelledby="involvement-title">
+            <div class="container">
+                <h2 id="involvement-title" class="title">Ways to Get Involved</h2>
+                <div class="grid-4">
+                    <article class="card" aria-labelledby="volunteer-h">
+                        <h3 id="volunteer-h" style="color:var(--gold);">Volunteer</h3>
+                        <p style="color:#e6d4ff;">Join as a mentor or supporter to guide and inspire girls and young women.</p>
+                        <div class="cta-row">
+                            <a class="btn-cta" href="#volunteer" aria-label="Volunteer sign-up form">Sign Up to Volunteer</a>
+                        </div>
+                    </article>
+                    <article class="card" aria-labelledby="partner-h">
+                        <h3 id="partner-h" style="color:var(--gold);">Partner With Us</h3>
+                        <p style="color:#e6d4ff;">Organizations and donors can collaborate to scale our programs and impact.</p>
+                        <div class="cta-row">
+                            <a class="btn-cta btn-ghost" href="mailto:partnerships@poisepurpose.org?subject=Partnership%20Inquiry" aria-label="Email partnerships">Contact Partnerships</a>
+                        </div>
+                    </article>
+                    <article class="card" aria-labelledby="donate-h">
+                        <h3 id="donate-h" style="color:var(--gold);">Donate</h3>
+                        <p style="color:#e6d4ff;">Fuel scholarships, mentorship, and community programs with a secure contribution.</p>
+                        <div class="cta-row">
+                            <a class="btn-cta" href="https://donate.poisepurpose.org" target="_blank" rel="noopener" aria-label="Secure donation link">Donate Securely</a>
+                        </div>
+                    </article>
+                    <article class="card" aria-labelledby="community-h">
+                        <h3 id="community-h" style="color:var(--gold);">Join Our Community</h3>
+                        <p style="color:#e6d4ff;">Connect via WhatsApp or sign up for our newsletter to stay updated.</p>
+                        <div class="cta-row">
+                            <a class="btn-cta btn-ghost" href="https://wa.me/" target="_blank" rel="noopener" aria-label="Join WhatsApp community">Join WhatsApp</a>
+                            <a class="btn-cta" href="#newsletter" aria-label="Newsletter sign-up">Subscribe to Newsletter</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="site-footer"></div>
+    <script>
+        function injectHTML(target, html){
+            target.innerHTML = html;
+            const scripts = Array.from(target.querySelectorAll('script'));
+            scripts.forEach((old)=>{
+                try{
+                    const fresh = document.createElement('script');
+                    Array.from(old.attributes).forEach(attr => fresh.setAttribute(attr.name, attr.value));
+                    if(old.src){ fresh.src = old.src; fresh.async = false; } else { fresh.text = old.textContent || ''; }
+                    const parent = old.parentNode || target;
+                    parent.replaceChild(fresh, old);
+                }catch(e){ console.error('Script injection failed:', e); }
+            });
+        }
+        Promise.all([
+            fetch('components/header.html').then(r=>r.text()),
+            fetch('components/footer.html').then(r=>r.text())
+        ]).then(([h,f])=>{
+            injectHTML(document.getElementById('site-header'), h);
+            injectHTML(document.getElementById('site-footer'), f);
+        }).catch(err=>console.error('Failed to load components:', err));
+    </script>
+</body>
+</html>
