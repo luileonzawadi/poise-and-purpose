@@ -9,6 +9,13 @@
 			<span class="pp-brand-text">Poise &amp; Purpose Kenya</span>
 		</a>
 
+		<!-- Theme Switcher Button -->
+		<div class="pp-theme-switcher">
+			<button id="themeToggle" class="pp-theme-btn" aria-label="Toggle theme" title="Toggle theme">
+				<span id="themeIcon">🌙</span>
+			</button>
+		</div>
+
 		<button class="pp-burger" aria-expanded="false" aria-controls="pp-primary-nav" aria-label="Open menu">
 			<span class="pp-burger-box" aria-hidden="true">
 				<span class="pp-burger-inner"></span>
@@ -50,6 +57,31 @@
 		--pp-blur: 14px;
 		--pp-speed: 260ms;
 		--pp-ease: cubic-bezier(.2,.7,.2,1);
+		
+		/* Theme Variables */
+		--theme-bg-color: #121212;
+		--theme-text-color: #ffffff;
+		--theme-bg-secondary: #1a1a1a;
+		--theme-bg-cards: rgba(0, 0, 0, 0.6);
+		--theme-border-light: rgba(255, 255, 255, 0.1);
+		--theme-text-secondary: #F0E68C;
+	}
+
+	/* Light Theme */
+	[data-theme="light"] {
+		--theme-bg-color: #ffffff;
+		--theme-text-color: #000000;
+		--theme-bg-secondary: #f8f9fa;
+		--theme-bg-cards: rgba(255, 255, 255, 0.9);
+		--theme-border-light: rgba(0, 0, 0, 0.1);
+		--theme-text-secondary: #34495e;
+
+		/* Header (navbar) variable flips */
+		--pp-bg: rgba(255,255,255,0.65);
+		--pp-bg-scrolled: rgba(255,255,255,0.85);
+		--pp-border: rgba(0,0,0,0.12);
+		--pp-text: #0b0b0b;
+		--pp-muted: rgba(11,11,11,0.65);
 	}
 
 	.pp-header{
@@ -77,6 +109,44 @@
 
 	.pp-nav-wrap{
 		max-width:1200px; margin:0 auto; padding:12px 16px; display:flex; align-items:center; justify-content:space-between; gap:12px;
+	}
+
+	/* Theme Switcher Styles */
+	.pp-theme-switcher {
+		display: flex;
+		align-items: center;
+	}
+
+	.pp-theme-btn {
+		width: 44px;
+		height: 44px;
+		border-radius: 12px;
+		border: 1px solid var(--pp-border);
+		background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+		color: var(--pp-text);
+		cursor: pointer;
+		transition: all var(--pp-speed) var(--pp-ease);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 18px;
+	}
+
+	.pp-theme-btn:hover {
+		transform: translateZ(8px) scale(1.04);
+		box-shadow: var(--pp-glow);
+	}
+
+	.pp-theme-btn:focus-visible {
+		outline: 2px solid var(--pp-accent2);
+		outline-offset: 2px;
+	}
+
+	/* Light theme button styles */
+	[data-theme="light"] .pp-theme-btn {
+		background: linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02));
+		border-color: rgba(0,0,0,0.1);
+		color: #000;
 	}
 
     .pp-brand{ display:flex; align-items:center; gap:16px; text-decoration:none; color:var(--pp-text); transform-style:preserve-3d; perspective:800px; }
@@ -186,6 +256,122 @@
 	.pp-nav-overlay{
 		position:fixed; inset:0; background: rgba(5,8,18,0.55); backdrop-filter: blur(2px);
 		z-index:1050; /* below menu panel (1100), above content */
+	}
+
+	/* Comprehensive Theme Application */
+	body {
+		/* Force override any gradients/images set elsewhere */
+		background: var(--theme-bg-color) !important;
+		color: var(--theme-text-color) !important;
+		transition: background-color 0.3s ease, color 0.3s ease;
+	}
+
+	html {
+		background: var(--theme-bg-color) !important;
+	}
+
+	/* Apply theme to all common sections; use background (not background-color) to clear gradients */
+	section, main, .hero-section, .about, .programs, .carousel, .get-involved, .events,
+	.hero, .subnav, .contact-form, .contact-info,
+	/* impact page sections */
+	.stats-section, .stories-section, .gallery-section, .timeline-section, .partners-section, .cta-section {
+		background: var(--theme-bg-color) !important;
+		background-image: none !important;
+	}
+
+	/* Clear gradients on any element with inline/background gradients */
+	[class*="gradient"],
+	[class*="hero"],
+	[class*="section"],
+	[class*="about"],
+	[class*="program"],
+	[class*="event"],
+	[class*="card"],
+	[class*="carousel"] {
+		background-image: none !important;
+	}
+
+	/* Card elements */
+	.card, .text-card, .icon-card, .program-card, .testimonial, .event-card,
+	.blog-card, .contact-form, .contact-info,
+	/* impact page cards */
+	.stat-card, .story-card, .timeline-content, .gallery-caption, .partner-logo {
+		background: var(--theme-bg-cards) !important;
+		border-color: var(--theme-border-light) !important;
+		color: var(--theme-text-secondary) !important;
+	}
+
+	/* Text elements */
+	h1, h2, h3, h4, h5, h6, .title, .section-title, .blog-card h3 {
+		color: var(--theme-text-color) !important;
+	}
+
+	p, span, a, li, td, th, .about-text, .about-text p, .icon-card p, 
+	.program-card p, .testimonial-text, .event-card p, .card p, 
+	.blog-card p, .hero p, .lead, .meta {
+		color: var(--theme-text-secondary) !important;
+	}
+
+	/* Links */
+	a {
+		color: var(--theme-text-secondary) !important;
+	}
+
+	/* Mobile nav (dropdown) light theme */
+	[data-theme="light"] .pp-nav-list{
+		background: linear-gradient(160deg, rgba(212, 175, 55,.12), rgba(0,0,0,.04)) , rgba(255,255,255,.96) !important;
+		border-color: var(--pp-border) !important;
+	}
+
+	/* Footer overrides */
+	.magical-footer,
+	.footer,
+	footer {
+		background: var(--theme-bg-color) !important;
+		background-image: none !important;
+		border-top-color: var(--theme-border-light) !important;
+		color: var(--theme-text-color) !important;
+	}
+
+	.footer-title,
+	.footer-bottom,
+	.mission-text,
+	.social-link,
+	.contact-item span {
+		color: var(--theme-text-secondary) !important;
+	}
+
+	/* Index hero video overlay - lighten in bright theme */
+	[data-theme="light"] .video-overlay,
+	[data-theme="light"] .hero {
+		background: linear-gradient(
+			45deg,
+			rgba(255, 255, 255, 0.75) 0%,
+			rgba(212, 175, 55, 0.15) 50%,
+			rgba(255, 255, 255, 0.75) 100%
+		) !important;
+	}
+
+	/* Override specific page variables */
+	[data-theme="light"] {
+		--dark: #ffffff;
+		--darker: #f8f9fa;
+		--light: #000000;
+		--primary-bg: #ffffff;
+		--secondary-bg: #f8f9fa;
+		--text-primary: #000000;
+		--text-secondary: #34495e;
+		--card-bg: rgba(255, 255, 255, 0.9);
+		--border-color: rgba(0, 0, 0, 0.1);
+	}
+
+	/* Mobile responsive for theme button */
+	@media (max-width: 900px) {
+		.pp-theme-btn {
+			width: 40px;
+			height: 40px;
+			font-size: 16px;
+		}
 	}
 </style>
 
@@ -310,5 +496,60 @@
 				setMenu(false);
 			}
 		});
+
+		// Theme Switcher Functionality
+		const themeToggle = header.querySelector('#themeToggle');
+		const themeIcon = header.querySelector('#themeIcon');
+		const htmlElement = document.documentElement;
+		
+		if (themeToggle && themeIcon) {
+			// Check for saved theme preference or default to dark
+			const savedTheme = localStorage.getItem('theme') || 'dark';
+			
+			// Apply saved theme on page load
+			htmlElement.setAttribute('data-theme', savedTheme);
+			updateIcon(savedTheme);
+			
+			// Theme toggle function
+			function toggleTheme() {
+				const currentTheme = htmlElement.getAttribute('data-theme');
+				const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+				
+				// Update theme
+				htmlElement.setAttribute('data-theme', newTheme);
+				localStorage.setItem('theme', newTheme);
+				// Notify listeners (pages can react, e.g., impact hero animation)
+				try{ window.dispatchEvent(new CustomEvent('themeChange', { detail: { theme: newTheme } })); }catch(e){}
+				updateIcon(newTheme);
+				
+				// Add visual feedback
+				themeToggle.style.transform = 'scale(0.9)';
+				setTimeout(() => {
+					themeToggle.style.transform = '';
+				}, 150);
+			}
+			
+			// Update icon based on theme
+			function updateIcon(theme) {
+				themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
+				themeToggle.setAttribute('title', `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`);
+				themeToggle.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`);
+			}
+			
+			// Add click event listener
+			themeToggle.addEventListener('click', toggleTheme);
+			
+			// Keyboard support
+			themeToggle.addEventListener('keydown', function(e) {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					toggleTheme();
+				}
+			});
+			
+			// Make themeToggle focusable
+			themeToggle.setAttribute('tabindex', '0');
+			themeToggle.setAttribute('role', 'button');
+		}
 	})();
 </script>
