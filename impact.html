@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Impact - Poise & Purpose Kenya</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
     <style>
         * {
             margin: 0;
@@ -38,47 +38,27 @@
         .hero {
             position: relative;
             width: 100%;
-            height: 100vh;
+            min-height: 70vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            z-index: 0; /* ensure proper stacking context */
-            padding: 0 20px;
-            overflow: hidden;
-            background: var(--theme-bg-color, #000) !important;
-        }
-
-        #canvas-container {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;              /* above hero background, below text */
-            pointer-events: none;
-        }
-
-        #canvas-container canvas {
-            position: absolute;
-            inset: 0;
-            width: 100% !important;
-            height: 100% !important;
-            display: block;
+            padding: 4rem 20px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.08), rgba(255,215,0,0.05));
         }
 
         .hero-content {
             position: relative;
-            z-index: 3; /* above canvas */
             max-width: 900px;
         }
 
         h1 {
-            font-size: 4.5rem;
+            font-size: clamp(2.5rem, 6vw, 4rem);
             font-weight: 800;
             line-height: 1.1;
             margin-bottom: 1.5rem;
-            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            color: #FFD700;
         }
 
         .subtitle {
@@ -147,43 +127,7 @@
             color: #fff;
         }
 
-        /* 3D Text Styles */
-        .text-3d {
-            position: relative;
-            display: inline-block;
-            transform-style: preserve-3d;
-            perspective: 500px;
-            animation: float 6s ease-in-out infinite;
-        }
 
-        .text-3d span {
-            display: inline-block;
-            transform: translateZ(20px);
-            text-shadow: 
-                1px 1px 0 #D4AF37,
-                2px 2px 0 #B8860B,
-                3px 3px 0 #8B6914,
-                4px 4px 0 #654321,
-                5px 5px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotateX(5deg); }
-            50% { transform: translateY(-10px) rotateX(5deg); }
-        }
-
-        /* Color animation for 3D text */
-        .color-change {
-            animation: colorShift 8s infinite alternate;
-        }
-
-        @keyframes colorShift {
-            0% { color: #D4AF37; }
-            25% { color: #FFD700; }
-            50% { color: #FFEC8B; }
-            75% { color: #F0E68C; }
-            100% { color: #DAA520; }
-        }
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -791,13 +735,9 @@
     <div id="site-header"></div>
     
     <div class="hero">
-        <div id="canvas-container"></div>
         <div class="hero-content">
-            <h1>
-                <span class="text-3d color-change">
-                    Our impact is real and you can be part of the next chapter.
-                </span>
-            </h1>
+            <h1>Our impact is real and you can be part of the next chapter.</h1>
+            <p class="subtitle">Empowering young women across Kenya to become leaders, entrepreneurs, and changemakers in their communities.</p>
             
             <div class="buttons">
                 <button class="btn btn-primary">Join Our Movement</button>
@@ -1017,363 +957,6 @@
             injectHTML(document.getElementById('site-footer'), f);
         }).catch(err=>console.error('Failed to load components:', err));
     </script>
-    <script>
-        // Three.js scene setup
-        let scene, camera, renderer;
-        let shapes = [];
-        let particles = [];
-        
-        // Initialize the scene
-        function init() {
-            // Create scene
-            scene = new THREE.Scene();
-            // Match theme background (transparent; hero provides bg)
-            scene.background = null;
-            scene.fog = null;
-            
-            // Create camera
-            const container = document.getElementById('canvas-container');
-            const bounds = container.getBoundingClientRect();
-            camera = new THREE.PerspectiveCamera(75, (bounds.width || window.innerWidth) / (bounds.height || window.innerHeight), 0.1, 1000);
-            camera.position.z = 15;
-            
-            // Create renderer
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(bounds.width || window.innerWidth, bounds.height || window.innerHeight);
-            renderer.setClearColor(0x000000, 0);
-            container.appendChild(renderer.domElement);
-            
-            // Add lights
-            const ambientLight = new THREE.AmbientLight(0xD4AF37, 0.4);
-            scene.add(ambientLight);
-            
-            const directionalLight = new THREE.DirectionalLight(0xFFD700, 0.8);
-            directionalLight.position.set(1, 1, 1);
-            scene.add(directionalLight);
-            
-            const pointLight = new THREE.PointLight(0xDAA520, 0.6, 50);
-            pointLight.position.set(0, 10, 10);
-            scene.add(pointLight);
-            
-            // Create love and signature shapes
-            createLoveAndSignatureShapes();
-            
-            // Create particle system
-            createParticles();
-            
-            // Event listeners
-            window.addEventListener('resize', onWindowResize);
-            
-            // Start animation
-            animate();
-        }
-        
-        function createLoveAndSignatureShapes() {
-            // Purple, pink, and golden colors
-            const colors = [
-                0xD4AF37, 0xFFD700, 0xDAA520, // Gold shades
-                0x9B30FF, 0x8A2BE2, 0x9370DB, // Purple shades
-                0xFF69B4, 0xFF1493, 0xFF6EB4, // Pink shades
-                0xFFEC8B, 0xF0E68C, 0xEEE8AA  // Light gold shades
-            ];
-            
-            // Create heart shapes (love)
-            for (let i = 0; i < 15; i++) {
-                const geometry = createHeartGeometry();
-                const material = new THREE.MeshPhongMaterial({
-                    color: colors[Math.floor(Math.random() * colors.length)],
-                    transparent: true,
-                    opacity: 0.7,
-                    shininess: 80,
-                    wireframe: Math.random() > 0.7
-                });
-                
-                const heart = new THREE.Mesh(geometry, material);
-                
-                // Position in a sphere formation
-                const radius = 8 + Math.random() * 8;
-                const theta = Math.random() * Math.PI * 2;
-                const phi = Math.random() * Math.PI;
-                
-                heart.position.x = radius * Math.sin(phi) * Math.cos(theta);
-                heart.position.y = radius * Math.sin(phi) * Math.sin(theta);
-                heart.position.z = radius * Math.cos(phi);
-                
-                // Random rotation
-                heart.rotation.x = Math.random() * Math.PI;
-                heart.rotation.y = Math.random() * Math.PI;
-                
-                // Random scale
-                const scale = 0.8 + Math.random() * 1.2;
-                heart.scale.set(scale, scale, scale);
-                
-                // Store animation properties
-                heart.userData = {
-                    speed: {
-                        x: (Math.random() - 0.5) * 0.005,
-                        y: (Math.random() - 0.5) * 0.005,
-                        z: (Math.random() - 0.5) * 0.005
-                    },
-                    float: Math.random() * 0.01,
-                    floatOffset: Math.random() * Math.PI * 2,
-                    originalPosition: {
-                        x: heart.position.x,
-                        y: heart.position.y,
-                        z: heart.position.z
-                    }
-                };
-                
-                scene.add(heart);
-                shapes.push(heart);
-            }
-            
-            // Create signature-like ribbon shapes
-            for (let i = 0; i < 10; i++) {
-                const geometry = createRibbonGeometry();
-                const material = new THREE.MeshPhongMaterial({
-                    color: colors[Math.floor(Math.random() * colors.length)],
-                    transparent: true,
-                    opacity: 0.6,
-                    shininess: 60,
-                    wireframe: Math.random() > 0.8
-                });
-                
-                const ribbon = new THREE.Mesh(geometry, material);
-                
-                // Position in a sphere formation
-                const radius = 8 + Math.random() * 8;
-                const theta = Math.random() * Math.PI * 2;
-                const phi = Math.random() * Math.PI;
-                
-                ribbon.position.x = radius * Math.sin(phi) * Math.cos(theta);
-                ribbon.position.y = radius * Math.sin(phi) * Math.sin(theta);
-                ribbon.position.z = radius * Math.cos(phi);
-                
-                // Random rotation
-                ribbon.rotation.x = Math.random() * Math.PI;
-                ribbon.rotation.y = Math.random() * Math.PI;
-                ribbon.rotation.z = Math.random() * Math.PI;
-                
-                // Random scale
-                const scale = 0.5 + Math.random() * 1.0;
-                ribbon.scale.set(scale, scale, scale);
-                
-                // Store animation properties
-                ribbon.userData = {
-                    speed: {
-                        x: (Math.random() - 0.5) * 0.008,
-                        y: (Math.random() - 0.5) * 0.008,
-                        z: (Math.random() - 0.5) * 0.008
-                    },
-                    float: Math.random() * 0.015,
-                    floatOffset: Math.random() * Math.PI * 2,
-                    originalPosition: {
-                        x: ribbon.position.x,
-                        y: ribbon.position.y,
-                        z: ribbon.position.z
-                    }
-                };
-                
-                scene.add(ribbon);
-                shapes.push(ribbon);
-            }
-            
-            // Add some connecting lines between shapes (community)
-            for (let i = 0; i < 15; i++) {
-                const index1 = Math.floor(Math.random() * shapes.length);
-                const index2 = Math.floor(Math.random() * shapes.length);
-                
-                if (index1 !== index2) {
-                    const geometry = new THREE.BufferGeometry().setFromPoints([
-                        new THREE.Vector3(
-                            shapes[index1].position.x,
-                            shapes[index1].position.y,
-                            shapes[index1].position.z
-                        ),
-                        new THREE.Vector3(
-                            shapes[index2].position.x,
-                            shapes[index2].position.y,
-                            shapes[index2].position.z
-                        )
-                    ]);
-                    
-                    const material = new THREE.LineBasicMaterial({
-                        color: colors[Math.floor(Math.random() * colors.length)],
-                        transparent: true,
-                        opacity: 0.3
-                    });
-                    
-                    const line = new THREE.Line(geometry, material);
-                    scene.add(line);
-                    shapes.push(line);
-                }
-            }
-        }
-        
-        // Create a heart geometry
-        function createHeartGeometry() {
-            const shape = new THREE.Shape();
-            const x = 0, y = 0;
-            
-            shape.moveTo(x + 0.25, y + 0.25);
-            shape.bezierCurveTo(x + 0.25, y + 0.25, x + 0.2, y, x, y);
-            shape.bezierCurveTo(x - 0.6, y, x - 0.6, y + 0.7, x - 0.6, y + 0.7);
-            shape.bezierCurveTo(x - 0.6, y + 1.1, x - 0.3, y + 1.54, x + 0.25, y + 1.9);
-            shape.bezierCurveTo(x + 0.8, y + 1.54, x + 1.1, y + 1.1, x + 1.1, y + 0.7);
-            shape.bezierCurveTo(x + 1.1, y + 0.7, x + 1.1, y, x + 0.5, y);
-            shape.bezierCurveTo(x + 0.35, y, x + 0.25, y + 0.25, x + 0.25, y + 0.25);
-            
-            const extrudeSettings = {
-                depth: 0.2,
-                bevelEnabled: true,
-                bevelSegments: 2,
-                steps: 2,
-                bevelSize: 0.1,
-                bevelThickness: 0.1
-            };
-            
-            return new THREE.ExtrudeGeometry(shape, extrudeSettings);
-        }
-        
-        // Create ribbon/signature-like geometry
-        function createRibbonGeometry() {
-            const curve = new THREE.CatmullRomCurve3([
-                new THREE.Vector3(0, 0, 0),
-                new THREE.Vector3(1, 0.5, 0.2),
-                new THREE.Vector3(2, 0, 0.4),
-                new THREE.Vector3(1.5, -0.5, 0.6),
-                new THREE.Vector3(0.5, -0.3, 0.8),
-                new THREE.Vector3(0, 0, 1)
-            ]);
-            
-            const tubeGeometry = new THREE.TubeGeometry(curve, 20, 0.1, 8, false);
-            return tubeGeometry;
-        }
-        
-        // Create particle system with purple, pink, and gold colors
-        function createParticles() {
-            const particleCount = 500;
-            const particles = new THREE.BufferGeometry();
-            const positions = new Float32Array(particleCount * 3);
-            const colors = new Float32Array(particleCount * 3);
-            
-            for (let i = 0; i < particleCount; i++) {
-                const i3 = i * 3;
-                
-                // Random position in a sphere
-                const radius = 15 + Math.random() * 10;
-                const theta = Math.random() * Math.PI * 2;
-                const phi = Math.random() * Math.PI;
-                
-                positions[i3] = radius * Math.sin(phi) * Math.cos(theta);
-                positions[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-                positions[i3 + 2] = radius * Math.cos(phi);
-                
-                // Purple, pink, and gold colors
-                const colorType = Math.floor(Math.random() * 3);
-                if (colorType === 0) {
-                    // Gold particles
-                    colors[i3] = 0.8 + Math.random() * 0.2; // R
-                    colors[i3 + 1] = 0.7 + Math.random() * 0.3; // G
-                    colors[i3 + 2] = 0.1 + Math.random() * 0.2; // B
-                } else if (colorType === 1) {
-                    // Purple particles
-                    colors[i3] = 0.6 + Math.random() * 0.2; // R
-                    colors[i3 + 1] = 0.2 + Math.random() * 0.2; // G
-                    colors[i3 + 2] = 0.8 + Math.random() * 0.2; // B
-                } else {
-                    // Pink particles
-                    colors[i3] = 0.9 + Math.random() * 0.1; // R
-                    colors[i3 + 1] = 0.4 + Math.random() * 0.2; // G
-                    colors[i3 + 2] = 0.6 + Math.random() * 0.2; // B
-                }
-            }
-            
-            particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-            particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-            
-            const particleMaterial = new THREE.PointsMaterial({
-                size: 0.1,
-                vertexColors: true,
-                transparent: true,
-                opacity: 0.6
-            });
-            
-            const particleSystem = new THREE.Points(particles, particleMaterial);
-            scene.add(particleSystem);
-            
-            // Store for animation
-            particleSystem.userData = {
-                originalPositions: positions.slice()
-            };
-            
-            shapes.push(particleSystem);
-        }
-        
-        function onWindowResize() {
-            const container = document.getElementById('canvas-container');
-            if (!container) return;
-            const bounds = container.getBoundingClientRect();
-            const width = bounds.width || window.innerWidth;
-            const height = bounds.height || window.innerHeight;
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix();
-            renderer.setSize(width, height);
-        }
-        
-        function animate() {
-            requestAnimationFrame(animate);
-            
-            // Animate shapes
-            const time = Date.now() * 0.001;
-            
-            shapes.forEach(shape => {
-                if (shape.userData && shape.userData.originalPosition) {
-                    // Rotation
-                    shape.rotation.x += shape.userData.speed.x;
-                    shape.rotation.y += shape.userData.speed.y;
-                    shape.rotation.z += shape.userData.speed.z;
-                    
-                    // Floating motion around original position
-                    shape.position.x = shape.userData.originalPosition.x + Math.sin(time * 0.5 + shape.userData.floatOffset) * 0.5;
-                    shape.position.y = shape.userData.originalPosition.y + Math.cos(time * 0.7 + shape.userData.floatOffset) * 0.5;
-                    shape.position.z = shape.userData.originalPosition.z + Math.sin(time * 0.3 + shape.userData.floatOffset) * 0.5;
-                    
-                    // Subtle pulsing scale
-                    const scale = 0.8 + Math.sin(time * 0.8 + shape.userData.floatOffset) * 0.2;
-                    shape.scale.set(scale, scale, scale);
-                }
-                
-                // Animate particles
-                if (shape instanceof THREE.Points && shape.userData.originalPositions) {
-                    const positions = shape.geometry.attributes.position.array;
-                    const originalPositions = shape.userData.originalPositions;
-                    
-                    for (let i = 0; i < positions.length; i += 3) {
-                        positions[i] = originalPositions[i] + Math.sin(time * 0.5 + i) * 0.1;
-                        positions[i + 1] = originalPositions[i + 1] + Math.cos(time * 0.7 + i) * 0.1;
-                        positions[i + 2] = originalPositions[i + 2] + Math.sin(time * 0.3 + i) * 0.1;
-                    }
-                    
-                    shape.geometry.attributes.position.needsUpdate = true;
-                }
-            });
-            
-            // Rotate camera slowly
-            camera.position.x = Math.sin(time * 0.1) * 5;
-            camera.position.z = 15 + Math.cos(time * 0.1) * 2;
-            camera.lookAt(scene.position);
-            
-            renderer.render(scene, camera);
-        }
-        
-        // Initialize the scene when the page loads
-        window.addEventListener('load', init);
 
-        // React to theme changes (recompute renderer size and ensure transparency)
-        window.addEventListener('themeChange', function(){
-            if (typeof onWindowResize === 'function') onWindowResize();
-        });
-    </script>
 </body>
 </html>

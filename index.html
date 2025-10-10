@@ -20,6 +20,20 @@
             --glass: rgba(255, 255, 255, 0.08);
             --glass-border: rgba(255, 255, 255, 0.12);
             --glow: 0 0 15px rgba(138, 43, 226, 0.5);
+            --bg-primary: #070711;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #f8f8ff;
+            --text-secondary: #e5e5e5;
+        }
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg-primary: #ffffff;
+                --bg-secondary: #f8fafc;
+                --text-primary: #1e293b;
+                --text-secondary: #475569;
+                --glass: rgba(0, 0, 0, 0.08);
+                --glass-border: rgba(0, 0, 0, 0.12);
+            }
         }
 
         * {
@@ -34,11 +48,12 @@
         }
 
         body {
-            background-color: var(--darker);
-            color: var(--light);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             overflow-x: hidden;
             line-height: 1.6;
             padding-top: 78px;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* Hero Section removed */
@@ -49,40 +64,33 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            background: #000;
             overflow: hidden;
         }
-
-        /* Video Background */
-        .video-background {
+        
+        .hero-bg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
-        }
-
-        .video-background video {
-            width: 100%;
-            height: 100%;
             object-fit: cover;
-            opacity: 0.4;
+            object-position: center top;
+            z-index: 0;
         }
 
-        .video-overlay {
+        .hero-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background: linear-gradient(
-                45deg,
+                to bottom,
                 rgba(0, 0, 0, 0.8) 0%,
-                rgba(120, 53, 15, 0.3) 50%,
-                rgba(0, 0, 0, 0.8) 100%
+                rgba(0, 0, 0, 0.7) 50%,
+                rgba(0, 0, 0, 0.9) 100%
             );
-            z-index: 2;
+            z-index: 1;
         }
 
         /* Container */
@@ -96,10 +104,11 @@
         }
 
         .hero-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            display: flex;
+            justify-content: center;
             align-items: center;
+            text-align: center;
+            margin-top: 20vh;
         }
 
         /* Left Side - Text Content */
@@ -113,10 +122,7 @@
             font-weight: 700;
             line-height: 1.1;
             margin-bottom: 24px;
-            background: linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #FFEC8B 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #B8860B !important;
             opacity: 0;
             transform: translateX(-50px);
             animation: slideInLeft 1s ease-out 0.5s forwards;
@@ -125,7 +131,7 @@
         .paragraph {
             font-size: clamp(1rem, 2vw, 1.2rem);
             line-height: 1.6;
-            color: #e5e5e5;
+            color: #000;
             margin-bottom: 32px;
             font-weight: 300;
             opacity: 0;
@@ -281,10 +287,11 @@
 
         @keyframes fadeIn { to { opacity: 1; } }
 
-        /* Hide hero image on mobile */
         @media (max-width: 768px) {
-            .image-content { display: none; }
-            .hero-content { grid-template-columns: 1fr; }
+            .hero-section { min-height: 70vh; }
+        }
+        @media (max-width: 480px) {
+            .hero-section { min-height: 60vh; padding: clamp(2rem, 5vw, 4rem) 0; }
         }
 
         .btn {
@@ -363,8 +370,9 @@
 
         /* About Section - Dark Theme Starts Here */
         .about {
-            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            background: linear-gradient(135deg, var(--bg-secondary), #2d2d2d);
             backdrop-filter: blur(10px);
+            transition: background 0.3s ease;
         }
 
         .about-content {
@@ -418,8 +426,9 @@
 
         /* Programs Section - Dark Theme */
         .programs {
-            background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
-            color: #f0f0f0;
+            background: linear-gradient(135deg, #2d2d2d, var(--bg-secondary));
+            color: var(--text-primary);
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         /* Programs Section */
@@ -502,9 +511,10 @@
 
         /* Carousel Section - Dark Theme */
         .carousel {
-            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            background: linear-gradient(135deg, var(--bg-secondary), #2d2d2d);
             backdrop-filter: blur(10px);
-            color: #f0f0f0;
+            color: var(--text-primary);
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         .testimonial-carousel {
@@ -567,14 +577,16 @@
 
         /* Get Involved Section - Dark Theme */
         .get-involved {
-            background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
-            color: #f0f0f0;
+            background: linear-gradient(135deg, #2d2d2d, var(--bg-secondary));
+            color: var(--text-primary);
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         /* Events Section - Dark Theme */
         .events {
-            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
-            color: #f0f0f0;
+            background: linear-gradient(135deg, var(--bg-secondary), #2d2d2d);
+            color: var(--text-primary);
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         /* Events Section */
@@ -649,7 +661,7 @@
         .event-title {
             font-size: 1.3rem;
             margin-bottom: 1rem;
-            color: var(--secondary);
+            color: #FFD700;
         }
 
         /* Animations cleanup */
@@ -661,41 +673,69 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            section { padding: clamp(3rem, 6vw, 5rem) clamp(1rem, 3vw, 2rem); }
+            .container { padding: 0 clamp(1rem, 2vw, 1.25rem); }
+        }
+        
         @media (max-width: 992px) {
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-
-            .events-timeline::before {
-                left: 30px;
-            }
-
-            .event-card {
-                width: calc(100% - 60px);
-                margin-left: 60px !important;
-                margin-right: 0 !important;
-            }
-
-            .event-card:nth-child(odd)::before,
-            .event-card:nth-child(even)::before {
-                left: -40px;
-            }
+            .about-content { grid-template-columns: 1fr; gap: clamp(2rem, 4vw, 3rem); }
+            .programs-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+            .impact-stats { flex-direction: column; align-items: center; gap: clamp(1rem, 3vw, 2rem); }
+            .events-timeline::before { left: 30px; }
+            .event-card { width: calc(100% - 60px); margin-left: 60px !important; margin-right: 0 !important; }
+            .event-card:nth-child(odd)::before, .event-card:nth-child(even)::before { left: -40px; }
         }
 
         @media (max-width: 768px) {
-            .section-title {
-                font-size: 2rem;
-            }
+            .section-title { font-size: clamp(1.8rem, 5vw, 2.2rem); }
+            .hero-container { padding: 0 clamp(16px, 4vw, 20px); }
+            .heading { font-size: clamp(2rem, 8vw, 3rem); }
+            .paragraph { font-size: clamp(0.9rem, 3vw, 1.1rem); }
+            .about-icons { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: clamp(1rem, 2vw, 1.5rem); }
+            .icon-card { padding: clamp(1rem, 3vw, 1.5rem); }
+            .program-card { padding: clamp(1.5rem, 3vw, 2rem); }
+            .testimonial { padding: clamp(2rem, 4vw, 3rem); }
+            .event-card { padding: clamp(1.5rem, 3vw, 2rem); }
+        }
+
+        @media (max-width: 640px) {
+            .programs-grid { grid-template-columns: 1fr; }
+            .about-icons { grid-template-columns: 1fr; }
+            .impact-stats { flex-direction: column; }
+            .stat-number { font-size: clamp(2rem, 6vw, 2.5rem); }
         }
 
         @media (max-width: 576px) {
-            .stat-number {
-                font-size: 2.5rem;
-            }
-
-            .programs-grid {
-                grid-template-columns: 1fr;
-            }
+            .hero-container { padding: 0 clamp(12px, 3vw, 15px); }
+            .cta-button { padding: clamp(10px, 2vw, 12px) clamp(20px, 4vw, 24px); font-size: clamp(0.85rem, 2vw, 0.9rem); }
+            .btn { padding: clamp(10px, 2vw, 14px) clamp(24px, 5vw, 32px); font-size: clamp(0.9rem, 2vw, 1.1rem); }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-container { padding: 0 clamp(8px, 2vw, 12px); }
+            .heading { font-size: clamp(1.8rem, 7vw, 2.5rem); margin-bottom: clamp(12px, 3vw, 16px); }
+            .paragraph { font-size: clamp(0.85rem, 3vw, 1rem); margin-bottom: clamp(20px, 4vw, 24px); }
+            .section-title { font-size: clamp(1.6rem, 5vw, 2rem); }
+            .icon-card { padding: clamp(1rem, 2vw, 1.25rem); }
+            .program-card { padding: clamp(1.25rem, 2vw, 1.5rem); }
+            .testimonial { padding: clamp(1.5rem, 3vw, 2rem); }
+        }
+        
+        @media (max-width: 375px) {
+            .hero-container { padding: 0 clamp(6px, 1.5vw, 10px); }
+            .heading { font-size: clamp(1.6rem, 6vw, 2rem); }
+            .paragraph { font-size: clamp(0.8rem, 2.5vw, 0.9rem); }
+            .section-title { font-size: clamp(1.4rem, 4vw, 1.8rem); }
+        }
+        
+        @media (max-width: 320px) {
+            .hero-container { padding: 0 clamp(4px, 1vw, 8px); }
+            .heading { font-size: 1.5rem; }
+            .paragraph { font-size: 0.75rem; }
+            .section-title { font-size: 1.3rem; }
+            .icon-card, .program-card { padding: 0.75rem; }
+            .testimonial { padding: 1rem; }
         }
 
         /* Accessibility */
@@ -724,13 +764,8 @@
     <div id="site-header"></div>
     <!-- Hero Section (from TEST.HTML) -->
     <section class="hero-section">
-        <div class="video-background">
-            <video autoplay muted loop playsinline>
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-group-of-african-women-dancing-traditionally-44363-large.mp4" type="video/mp4">
-                <img src="https://images.unsplash.com/photo-1516627145497-ae69578cf5d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="African women empowerment">
-            </video>
-            <div class="video-overlay"></div>
-        </div>
+        <img src="images/event4.jpeg" alt="Empowered Women Leaders" class="hero-bg">
+        <div class="hero-overlay"></div>
 
         <div class="floating-elements">
             <div class="floating-element element-1"></div>
@@ -745,16 +780,8 @@
                     <p class="paragraph">At Poise & Purpose Kenya, we ignite the power of young women and girls to rise as bold leaders.</p>
                     <a href="contact.html" class="cta-button">Join Our Movement</a>
                 </div>
-                <div class="image-content">
-                    <div class="image-wrapper">
-                        <img src="images/image.png" alt="Confident African young woman leader" class="hero-image">
-                        <div class="image-glow"></div>
-                    </div>
-                </div>
             </div>
         </div>
-
-
     </section>
 
     <!-- About Section -->
@@ -927,18 +954,7 @@
             });
         });
 
-        // Video fallback handling
-        const heroVideo = document.querySelector('.video-background video');
-        if (heroVideo) {
-            heroVideo.addEventListener('error', function() {
-                const fallbackImage = this.querySelector('img');
-                if (fallbackImage) {
-                    this.parentElement.style.backgroundImage = `url(${fallbackImage.src})`;
-                    this.style.display = 'none';
-                    fallbackImage.style.display = 'block';
-                }
-            });
-        }
+
 
         // Intersection Observer for hero animations
         const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };

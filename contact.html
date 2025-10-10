@@ -23,6 +23,22 @@
             --gradient-2: linear-gradient(135deg, #e6c34f 0%, #ffed99 100%);
             --gold-glow: rgba(212, 175, 55, 0.3);
         }
+        @media (prefers-color-scheme: light) {
+            :root {
+                --primary-bg: #ffffff;
+                --secondary-bg: #f8fafc;
+                --text-primary: #1e293b;
+                --text-secondary: #475569;
+                --card-bg: rgba(255, 255, 255, 0.9);
+                --border-color: rgba(99, 102, 241, 0.2);
+                --gradient-1: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+                --gradient-2: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+            }
+            h1 { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+            h2::after { background: #6366f1; }
+            .btn-primary { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+            .submit-btn { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+        }
 
         * {
             box-sizing: border-box;
@@ -37,6 +53,7 @@
             line-height: 1.6;
             scroll-behavior: smooth;
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         body {
@@ -97,7 +114,7 @@
             left: 0;
             width: 60px;
             height: 3px;
-            background: var(--text-primary);
+            background: var(--gradient-1);
             border-radius: 2px;
             box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
         }
@@ -399,11 +416,55 @@
             justify-content: center;
         }
 
+        .form-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .contact-info {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+        
+        .contact-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-1);
+        }
+        
+        .info-item {
+            margin-bottom: 1.5rem;
+        }
+        
+        .info-item h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .info-item p {
+            color: var(--text-secondary);
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        
         .form-content {
             background: var(--card-bg);
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
             border: 1px solid rgba(212, 175, 55, 0.1);
             backdrop-filter: blur(10px);
             position: relative;
@@ -437,25 +498,26 @@
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
             color: var(--text-primary);
             font-weight: 500;
+            font-size: 0.9rem;
         }
 
         .form-control {
             width: 100%;
-            padding: 0.8rem 1rem;
+            padding: 0.6rem 0.8rem;
             background: var(--secondary-bg);
             border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 8px;
+            border-radius: 6px;
             color: var(--text-primary);
             font-family: 'Inter', sans-serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
         }
 
@@ -466,7 +528,7 @@
         }
 
         textarea.form-control {
-            min-height: 120px;
+            min-height: 80px;
             resize: vertical;
         }
 
@@ -474,13 +536,14 @@
             background: var(--gradient-1);
             color: #1a1308;
             border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             display: inline-block;
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            font-size: 0.9rem;
         }
 
         .submit-btn:hover {
@@ -488,23 +551,58 @@
             box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
         }
 
+        @media (max-width: 1024px) {
+            main { padding: clamp(16px, 3vw, 20px); }
+            section { margin-bottom: clamp(5rem, 8vw, 7rem); }
+            .hero-section { padding: clamp(6rem, 10vw, 8rem) clamp(1rem, 2vw, 1.5rem) clamp(4rem, 6vw, 6rem); }
+        }
+        
         @media (max-width: 768px) {
-            .hero-section {
-                padding: 6rem 1rem 4rem;
-            }
-            
-            .hero-cta {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .contact-radial {
-                grid-template-columns: 1fr;
-            }
-            
-            .form-visual {
-                height: 200px;
-            }
+            .hero-section { padding: clamp(5rem, 8vw, 6rem) clamp(0.75rem, 2vw, 1rem) clamp(3rem, 5vw, 4rem); }
+            .hero-cta { flex-direction: column; align-items: center; gap: clamp(1rem, 2vw, 1.5rem); }
+            .form-container { grid-template-columns: 1fr; gap: 2rem; }
+            main { padding: clamp(12px, 3vw, 16px); }
+            h1 { font-size: clamp(2.2rem, 6vw, 3.5rem); }
+            h2 { font-size: clamp(1.6rem, 4vw, 2.5rem); }
+            .contact-info { padding: 1.5rem; }
+            .form-content { padding: 1.5rem; }
+        }
+        
+        @media (max-width: 640px) {
+            .contact-radial { grid-template-columns: 1fr; }
+            .hero-cta .btn { width: 100%; max-width: 280px; text-align: center; }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-section { padding: clamp(3rem, 6vw, 4rem) clamp(0.5rem, 1.5vw, 0.75rem) clamp(2rem, 4vw, 3rem); }
+            .contact-card { padding: clamp(1.5rem, 3vw, 2rem); }
+            .form-content { padding: clamp(2rem, 3vw, 2.5rem); }
+            h1 { font-size: clamp(1.8rem, 6vw, 2.5rem); }
+            h2 { font-size: clamp(1.4rem, 4vw, 1.8rem); }
+            h3 { font-size: clamp(1.2rem, 3vw, 1.5rem); }
+            p { font-size: clamp(0.9rem, 2vw, 1rem); }
+            .contact-icon { width: clamp(50px, 10vw, 60px); height: clamp(50px, 10vw, 60px); }
+            .btn { padding: clamp(0.6rem, 1.5vw, 0.8rem) clamp(1.5rem, 3vw, 2rem); font-size: clamp(0.85rem, 2vw, 1rem); }
+        }
+        
+        @media (max-width: 375px) {
+            .hero-section { padding: clamp(2.5rem, 5vw, 3rem) clamp(0.5rem, 1vw, 0.75rem) clamp(1.5rem, 3vw, 2rem); }
+            .contact-card { padding: clamp(1.25rem, 2vw, 1.5rem); }
+            .form-content { padding: clamp(1.5rem, 2vw, 2rem); }
+            main { padding: clamp(8px, 2vw, 12px); }
+        }
+        
+        @media (max-width: 320px) {
+            .hero-section { padding: 2rem 0.5rem 1.5rem; }
+            .contact-card { padding: 1.25rem; }
+            .form-content { padding: 1.5rem; }
+            main { padding: 8px; }
+            h1 { font-size: 1.6rem; }
+            h2 { font-size: 1.3rem; }
+            h3 { font-size: 1.1rem; }
+            p { font-size: 0.85rem; }
+            .contact-icon { width: 45px; height: 45px; }
+            .btn { padding: 0.6rem 1.25rem; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -525,90 +623,36 @@
                 <h1>Let's Connect</h1>
                 <p>At Poise & Purpose Kenya, we believe in the power of connection. Reach out to us and become part of our mission to empower young women and girls across Kenya.</p>
                 <div class="hero-cta">
-                    <a href="#contact-radial" class="btn btn-primary">Our Contact Points</a>
-                    <a href="#contact-form" class="btn btn-secondary">Send a Message</a>
+                    <a href="#contact-form" class="btn btn-primary">Send a Message</a>
                 </div>
             </div>
         </section>
 
-        <!-- Contacts -->
-        <section class="radial-contact" id="contact-radial">
-            <div class="radial-container">
-                <div class="contact-radial">
-                    <!-- Location -->
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <h3>Our Location</h3>
-                        <ul class="contact-details">
-                            <li>
-                                <div class="contact-text">
-                                    <h4>Main Office</h4>
-                                    <p>Kisii County, Kenya</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="contact-text">
-                                    <h4>Visit Us</h4>
-                                    <p>Monday - Friday: 9:00 AM - 5:00 PM</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <!-- Email -->
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M22 6L12 13L2 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <h3>Email & Digital</h3>
-                        <ul class="contact-details">
-                            <li>
-                                <div class="contact-text">
-                                    <h4>For Any Inquiries</h4>
-                                    <p>poiseandpurpose2@gmail.com</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <!-- Phone No. -->
-                    <div class="contact-card">
-                        <div class="contact-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5 4H9L11 9L8.5 10.5C9.57096 12.6715 11.3285 14.429 13.5 15.5L15 13L20 15V19C20 19.5304 19.7893 20.0391 19.4142 20.4142C19.0391 20.7893 18.5304 21 18 21C14.0993 20.763 10.4202 19.1065 7.65683 16.3432C4.8935 13.5798 3.23705 9.90074 3 6C3 5.46957 3.21071 4.96086 3.58579 4.58579C3.96086 4.21071 4.46957 4 5 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <h3>Phone & Social</h3>
-                        <ul class="contact-details">
-                            <li>
-                                <div class="contact-text">
-                                    <h4>Phone</h4>
-                                    <p>+254 729 898 155</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="contact-text">
-                                    <h4>Social Media</h4>
-                                    <p>@PoisePurposeKE</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
+
 
         <!-- Form Section -->
         <section class="form-section" id="contact-form">
-            <h2 style="text-align: center; margin-bottom: 4rem;">Send Us a Message</h2>
+            <h2 style="text-align: center; margin-bottom: 2rem;">Send Us a Message</h2>
+            <div class="form-container">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="info-item">
+                        <h4>📍 Location</h4>
+                        <p>Kisii County, Kenya</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>📧 Email</h4>
+                        <p>poiseandpurpose2@gmail.com</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>📞 Phone</h4>
+                        <p>+254 729 898 155</p>
+                    </div>
+                    <div class="info-item">
+                        <h4>🕒 Hours</h4>
+                        <p>Monday - Friday<br>9:00 AM - 5:00 PM</p>
+                    </div>
+                </div>
                 <div class="form-content">
                     <h3>Get In Touch</h3>
                     <form id="contactForm">

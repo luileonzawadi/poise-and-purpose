@@ -3,11 +3,17 @@
 	<a class="pp-skip" href="#main">Skip to content</a>
 	<div class="pp-nav-wrap">
 		<a href="/" class="pp-brand" aria-label="Poise and Purpose Kenya Home">
-			<span class="pp-logo" aria-hidden="true">
-				<img src="images/logo.jpg" alt="Poise & Purpose Kenya Logo" width="48" height="48" class="pp-logo-svg">
+			<span class="pp-logo-frame" aria-hidden="true">
+				<img src="images/logo.jpg" alt="Poise & Purpose Kenya Logo" width="40" height="40" class="pp-logo-img">
 			</span>
 			<span class="pp-brand-text">Poise &amp; Purpose Kenya</span>
 		</a>
+
+		<button class="pp-burger" aria-expanded="false" aria-controls="pp-primary-nav" aria-label="Open menu">
+			<span class="pp-burger-box" aria-hidden="true">
+				<span class="pp-burger-inner"></span>
+			</span>
+		</button>
 
 		<!-- Theme Switcher Button -->
 		<div class="pp-theme-switcher">
@@ -15,12 +21,6 @@
 				<span id="themeIcon">🌙</span>
 			</button>
 		</div>
-
-		<button class="pp-burger" aria-expanded="false" aria-controls="pp-primary-nav" aria-label="Open menu">
-			<span class="pp-burger-box" aria-hidden="true">
-				<span class="pp-burger-inner"></span>
-			</span>
-		</button>
 
 		<!-- overlay shown on mobile when menu is open -->
 		<div class="pp-nav-overlay" hidden></div>
@@ -48,11 +48,11 @@
 		--pp-border: rgba(255,255,255,0.18);
 		--pp-text: #f5f7ff;
 		--pp-muted: rgba(240,242,255,0.7);
-		--pp-accent1:#D4AF37; /* Changed to gold */
-		--pp-accent2:#FFD700; /* Changed to gold */
+		--pp-accent1:#D4AF37;
+		--pp-accent2:#FFD700;
 		--pp-gold-light: #FFEC8B;
 		--pp-gold-dark: #B8860B;
-		--pp-glow: 0 8px 30px rgba(212, 175, 55, 0.35), 0 1px 0 rgba(255,255,255,0.2) inset; /* Updated to gold */
+		--pp-glow: 0 8px 30px rgba(212, 175, 55, 0.35), 0 1px 0 rgba(255,255,255,0.2) inset;
 		--pp-radius: 16px;
 		--pp-blur: 14px;
 		--pp-speed: 260ms;
@@ -76,12 +76,15 @@
 		--theme-border-light: rgba(0, 0, 0, 0.1);
 		--theme-text-secondary: #34495e;
 
-		/* Header (navbar) variable flips */
-		--pp-bg: rgba(255,255,255,0.65);
-		--pp-bg-scrolled: rgba(255,255,255,0.85);
-		--pp-border: rgba(0,0,0,0.12);
-		--pp-text: #0b0b0b;
-		--pp-muted: rgba(11,11,11,0.65);
+		/* Header variables for light mode - using purple/blue instead of gold */
+		--pp-bg: rgba(255,255,255,0.75);
+		--pp-bg-scrolled: rgba(255,255,255,0.9);
+		--pp-border: rgba(0,0,0,0.1);
+		--pp-text: #1e293b;
+		--pp-muted: rgba(30,41,59,0.7);
+		--pp-accent1: #6366f1;
+		--pp-accent2: #8b5cf6;
+		--pp-glow: 0 8px 30px rgba(99,102,241,0.25), 0 1px 0 rgba(0,0,0,0.1) inset;
 	}
 
 	.pp-header{
@@ -93,12 +96,23 @@
 		box-shadow: 0 10px 40px rgba(0,0,0,0.18);
 		color:var(--pp-text);
 		isolation:isolate;
+		transition: all 0.3s ease;
 	}
 
 	.pp-header.scrolled{
 		background: linear-gradient(120deg, rgba(212,175,55,.22), rgba(255,215,0,.18)) , var(--pp-bg-scrolled);
 		transition: background var(--pp-speed) var(--pp-ease), box-shadow var(--pp-speed) var(--pp-ease);
 		box-shadow: 0 12px 50px rgba(0,0,0,0.28);
+	}
+	
+	/* Light theme header overrides */
+	[data-theme="light"] .pp-header{
+		background: linear-gradient(120deg, rgba(99,102,241,.12), rgba(139,92,246,.08)) , var(--pp-bg);
+		box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+	}
+	[data-theme="light"] .pp-header.scrolled{
+		background: linear-gradient(120deg, rgba(99,102,241,.15), rgba(139,92,246,.12)) , var(--pp-bg-scrolled);
+		box-shadow: 0 12px 50px rgba(0,0,0,0.15);
 	}
 
 	.pp-skip{
@@ -110,6 +124,17 @@
 	.pp-nav-wrap{
 		max-width:1200px; margin:0 auto; padding:12px 16px; display:flex; align-items:center; justify-content:space-between; gap:12px;
 	}
+	.pp-theme-switcher { margin-left: auto; }
+
+    .pp-brand{ display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--pp-text); }
+    .pp-logo-frame{
+        display:inline-grid; place-items:center; width:40px; height:40px; border-radius:8px;
+        border:2px solid var(--pp-accent1); background: rgba(255,255,255,0.05);
+        transition: all 0.3s ease; overflow:hidden;
+    }
+    .pp-logo-img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .pp-brand:hover .pp-logo-frame{ border-color:var(--pp-accent2); transform: scale(1.05); }
+    .pp-brand-text{ font-weight:700; letter-spacing:.2px; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
 
 	/* Theme Switcher Styles */
 	.pp-theme-switcher {
@@ -191,7 +216,7 @@
 
 	.pp-link{
 		display:inline-flex; align-items:center; justify-content:center;
-		padding:10px 14px; border-radius:12px; color:var(--pp-gold-light); /* Changed to gold */
+		padding:10px 14px; border-radius:12px; color:var(--pp-muted);
 		text-decoration:none; font-weight:500;
 		transition: color var(--pp-speed) var(--pp-ease), transform var(--pp-speed) var(--pp-ease), box-shadow var(--pp-speed) var(--pp-ease), background var(--pp-speed) var(--pp-ease);
 		transform-style:preserve-3d;
@@ -236,6 +261,10 @@
 			padding:12px; opacity:0; transform: translateY(-8px) scale(.98);
 			pointer-events:none; transition: opacity var(--pp-speed) var(--pp-ease), transform var(--pp-speed) var(--pp-ease);
 			backdrop-filter: blur(10px);
+		}
+		/* Light theme mobile nav */
+		[data-theme="light"] .pp-nav-list{
+			background: linear-gradient(160deg, rgba(99,102,241,.15), rgba(139,92,246,.12)) , rgba(255,255,255,.95);
 		}
 		.pp-nav-list.open{
 			opacity:1; transform: translateY(0) scale(1); pointer-events:auto; box-shadow: var(--pp-glow);
@@ -317,11 +346,7 @@
 		color: var(--theme-text-secondary) !important;
 	}
 
-	/* Mobile nav (dropdown) light theme */
-	[data-theme="light"] .pp-nav-list{
-		background: linear-gradient(160deg, rgba(212, 175, 55,.12), rgba(0,0,0,.04)) , rgba(255,255,255,.96) !important;
-		border-color: var(--pp-border) !important;
-	}
+
 
 	/* Footer overrides */
 	.magical-footer,
