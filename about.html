@@ -23,6 +23,11 @@
             --bg-secondary: #1a1a1a;
             --text-primary: #f8f8ff;
             --text-secondary: #e6d4ff;
+            --purple: #8a2be2;
+            --purple-light: #a855f7;
+            --purple-dark: #6b21a8;
+            --purple-gold: linear-gradient(135deg, #8a2be2, #FFD700);
+            --gold-purple: linear-gradient(135deg, #FFD700, #8a2be2);
         }
         @media (prefers-color-scheme: light) {
             :root {
@@ -33,6 +38,16 @@
                 --glass: rgba(0, 0, 0, 0.08);
                 --glass-border: rgba(0, 0, 0, 0.12);
             }
+            .title { background: var(--purple-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+            .title::after { background: var(--purple-gold); }
+            .subnav-link.is-active { background: var(--purple-gold); color: #fff; }
+            .kv h3 { background: var(--purple-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+            .step-heading { background: var(--purple-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+            .leader h4 { background: var(--purple-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+            .fact-number { background: var(--purple-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+            /* Improve badge visibility in bright theme */
+            .pill{ color:#6b21a8; border-color: rgba(138,43,226,.28); background: rgba(138,43,226,.10); }
+            .story-step{ border-color: rgba(138,43,226,.25); background: linear-gradient(135deg, rgba(138,43,226,.06) 0%, rgba(255,215,0,.05) 100%); }
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
@@ -40,8 +55,8 @@
         body { background: var(--bg-primary); color: var(--text-primary); line-height: 1.7; padding-top: 78px; transition: background-color 0.3s ease, color 0.3s ease; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 1.25rem; }
         section { padding: 4.5rem 0; position: relative; scroll-margin-top: 110px; }
-        .title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 2.2rem; text-align: center; margin-bottom: 2.5rem; color: var(--gold); position: relative; }
-        .title::after { content:""; position:absolute; bottom:-10px; left:50%; transform:translateX(-50%); width:80px; height:4px; background:linear-gradient(90deg, var(--gold2), var(--gold)); border-radius:2px; }
+        .title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 2.2rem; text-align: center; margin-bottom: 2.5rem; background: var(--purple-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; position: relative; }
+        .title::after { content:""; position:absolute; bottom:-10px; left:50%; transform:translateX(-50%); width:80px; height:4px; background:var(--purple-gold); border-radius:2px; }
 
         /* Hero */
         .hero { padding: 4rem 0 2rem; background: linear-gradient(135deg,var(--bg-secondary),#2d2d2d); transition: background 0.3s ease; }
@@ -133,7 +148,25 @@
 			box-shadow: 0 0 0 6px rgba(212,175,55,.3), 0 0 20px rgba(255,215,0,.5);
 		}
 		.story-step:focus-visible{ outline:2px solid #FFD700; outline-offset:2px; }
-		.chapter-badge{ display:inline-block; font-size:.8rem; color:#FFEC8B; border:1px solid rgba(212,175,55,.28); border-radius:999px; padding:.25rem .6rem; margin-bottom:.5rem; background: rgba(212,175,55,.08); }
+		.chapter-badge {
+    display: inline-block;
+    font-size: .8rem;
+    color: white;
+    border: 1px solid rgba(212, 175, 55, .28);
+    border-radius: 999px;
+    padding: .25rem .6rem;
+    margin-bottom: .5rem;
+    background: goldenrod;
+}
+		/* Light theme overrides for better visibility */
+		@media (prefers-color-scheme: light) {
+			.chapter-badge{ 
+				color:#000000 !important; 
+				border-color: rgba(138,43,226,.4) !important; 
+				background: rgba(138,43,226,.15) !important; 
+				font-weight: 600 !important;
+			}
+		}
 		.step-heading{ color: var(--gold); font-size:1.25rem; margin:.1rem 0 .35rem; }
 		.pull-quote{ max-width:900px; margin:2rem auto 0; border-left:4px solid #D4AF37; }
 		.pull-quote p{ font-family:'Montserrat', sans-serif; font-weight:800; font-size:1.3rem; color:#FFEC8B; }
