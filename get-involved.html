@@ -19,6 +19,11 @@
             --glass-border: rgba(255, 255, 255, 0.12);
             --gold: #FFD700;
             --gold2: #D4AF37;
+            --purple: #8a2be2;
+            --purple-light: #a855f7;
+            --purple-dark: #6b21a8;
+            --purple-gold: linear-gradient(135deg, #8a2be2, #FFD700);
+            --gold-purple: linear-gradient(135deg, #FFD700, #8a2be2);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
@@ -26,8 +31,8 @@
         body { background: var(--darker); color: var(--light); line-height: 1.7; padding-top: 78px; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 1.25rem; }
         section { padding: 4.5rem 0; position: relative; scroll-margin-top: 110px; }
-        .title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 2.2rem; text-align: center; margin-bottom: 2.5rem; color: var(--gold); position: relative; }
-        .title::after { content:""; position:absolute; bottom:-10px; left:50%; transform:translateX(-50%); width:80px; height:4px; background:linear-gradient(90deg, var(--gold2), var(--gold)); border-radius:2px; }
+        .title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 2.2rem; text-align: center; margin-bottom: 2.5rem; background: var(--purple-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; position: relative; }
+        .title::after { content:""; position:absolute; bottom:-10px; left:50%; transform:translateX(-50%); width:80px; height:4px; background: var(--purple-gold); border-radius:2px; }
 
         /* Hero */
         .hero { padding: 4rem 0 2rem; background: linear-gradient(135deg,#1a1a1a,#2d2d2d); }
@@ -35,23 +40,38 @@
 
         /* Cards */
         .card { 
-            background: rgba(0,0,0,0.55); 
-            border:1px solid rgba(212,175,55,.28); 
-            border-radius: 14px; 
-            padding: 1.5rem; 
-            box-shadow: 0 10px 30px rgba(0,0,0,.25);
+            background: linear-gradient(135deg, rgba(138,43,226,0.1), rgba(0,0,0,0.6)); 
+            border: 1px solid rgba(138,43,226,0.3); 
+            border-radius: 20px; 
+            padding: 2rem; 
+            box-shadow: 0 15px 40px rgba(0,0,0,.3), 0 0 20px rgba(138,43,226,.1);
             transform-style: preserve-3d;
-            opacity: 0;
-            transform: translateY(24px) translateZ(-120px) scale(.92) rotateX(8deg);
-            transition: transform .7s cubic-bezier(.2,.7,.2,1), opacity .6s ease, box-shadow .3s ease, border-color .3s ease;
+            opacity: 1; /* visible immediately */
+            transform: none;
+            transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+            position: relative;
+            overflow: hidden;
         }
-        .card.is-visible {
-            transform: translateZ(0) scale(1);
-            opacity: 1;
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--purple-gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
         }
+        .card.is-visible { /* kept for safety, but no-op now */ }
         .card:hover {
             transform: translateZ(20px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(212,175,55,.3), 0 0 20px rgba(255,215,0,.2);
+            box-shadow: 0 25px 50px rgba(138,43,226,.2), 0 0 30px rgba(255,215,0,.15);
+            border-color: rgba(138,43,226,0.5);
+        }
+        .card:hover::before {
+            transform: scaleX(1);
         }
         .grid-4 { display: grid; gap: 1.25rem; grid-template-columns: repeat(4, minmax(0,1fr)); perspective: 1000px; perspective-origin: 50% 40%; }
 
@@ -59,14 +79,55 @@
         .cta-row{ display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1rem; justify-content:center; }
         .btn-cta{
             display:inline-flex; align-items:center; justify-content:center;
-            padding:.6rem 1rem; border-radius:999px; text-decoration:none; cursor:pointer;
-            color:#0b0b0b; background: linear-gradient(90deg, var(--gold2), var(--gold));
+            padding:.8rem 1.5rem; border-radius:999px; text-decoration:none; cursor:pointer;
+            color:#000; background: linear-gradient(135deg, #D4AF37, #FFD700);
             border:1px solid rgba(212,175,55,.45);
             transition: transform .2s ease, box-shadow .25s ease, background .25s ease;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
         }
-        .btn-cta:hover, .btn-cta:focus-visible{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(212,175,55,.22); outline:none; }
+        .btn-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        .btn-cta:hover::before {
+            left: 100%;
+        }
+        .btn-cta:hover, .btn-cta:focus-visible{ 
+            transform: translateY(-2px); 
+            box-shadow: 0 15px 30px rgba(138,43,226,.3), 0 0 20px rgba(255,215,0,.2); 
+            outline:none; 
+        }
         .btn-ghost{
-            color:#FFEC8B; background: rgba(0,0,0,.35); border:1px solid rgba(212,175,55,.28);
+            color:#000; background: linear-gradient(135deg, #D4AF37, #FFD700); border:1px solid rgba(212,175,55,.45);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-ghost::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        .btn-ghost:hover::before {
+            left: 100%;
+        }
+        .btn-ghost:hover {
+            background: linear-gradient(135deg, #B8860B, #D4AF37);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(212,175,55,.3), 0 0 20px rgba(212,175,55,.2);
         }
 
         /* Staggered animation delays */
@@ -106,28 +167,28 @@
                 <h2 id="involvement-title" class="title">Ways to Get Involved</h2>
                 <div class="grid-4">
                     <article class="card" aria-labelledby="volunteer-h">
-                        <h3 id="volunteer-h" style="color:var(--gold);">Volunteer</h3>
+                        <h3 id="volunteer-h" style="background: var(--purple-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.4rem; margin-bottom: 1rem;">Volunteer</h3>
                         <p style="color:#e6d4ff;">Join as a mentor or supporter to guide and inspire girls and young women.</p>
                         <div class="cta-row">
                             <a class="btn-cta" href="#volunteer" aria-label="Volunteer sign-up form">Sign Up to Volunteer</a>
                         </div>
                     </article>
                     <article class="card" aria-labelledby="partner-h">
-                        <h3 id="partner-h" style="color:var(--gold);">Partner With Us</h3>
+                        <h3 id="partner-h" style="background: var(--purple-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.4rem; margin-bottom: 1rem;">Partner With Us</h3>
                         <p style="color:#e6d4ff;">Organizations and donors can collaborate to scale our programs and impact.</p>
                         <div class="cta-row">
                             <a class="btn-cta btn-ghost" href="mailto:partnerships@poisepurpose.org?subject=Partnership%20Inquiry" aria-label="Email partnerships">Contact Partnerships</a>
                         </div>
                     </article>
                     <article class="card" aria-labelledby="donate-h">
-                        <h3 id="donate-h" style="color:var(--gold);">Donate</h3>
+                        <h3 id="donate-h" style="background: var(--purple-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.4rem; margin-bottom: 1rem;">Donate</h3>
                         <p style="color:#e6d4ff;">Fuel scholarships, mentorship, and community programs with a secure contribution.</p>
                         <div class="cta-row">
                             <a class="btn-cta" href="https://donate.poisepurpose.org" target="_blank" rel="noopener" aria-label="Secure donation link">Donate Securely</a>
                         </div>
                     </article>
                     <article class="card" aria-labelledby="community-h">
-                        <h3 id="community-h" style="color:var(--gold);">Join Our Community</h3>
+                        <h3 id="community-h" style="background: var(--purple-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.4rem; margin-bottom: 1rem;">Join Our Community</h3>
                         <p style="color:#e6d4ff;">Connect via WhatsApp or sign up for our newsletter to stay updated.</p>
                         <div class="cta-row">
                             <a class="btn-cta btn-ghost" href="https://wa.me/" target="_blank" rel="noopener" aria-label="Join WhatsApp community">Join WhatsApp</a>
@@ -167,22 +228,8 @@
             const cards = Array.from(document.querySelectorAll('#involvement-options .card'));
             if(cards.length === 0) return;
 
-            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if(prefersReduced){
-                cards.forEach(c=>{ c.style.opacity = '1'; c.style.transform = 'none'; });
-                return;
-            }
-
-            const revealObserver = new IntersectionObserver((entries, obs)=>{
-                entries.forEach(entry=>{
-                    if(entry.isIntersecting){
-                        entry.target.classList.add('is-visible');
-                        obs.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
-
-            cards.forEach(c=> revealObserver.observe(c));
+            // Make cards visible immediately for better perceived performance
+            cards.forEach(c=> c.classList.add('is-visible'));
 
             function updateTransforms(){
                 const vh = window.innerHeight;

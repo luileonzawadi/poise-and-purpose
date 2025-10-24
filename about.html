@@ -15,33 +15,28 @@
             --dark: #0f0f1e;
             --darker: #070711;
             --light: #f8f8ff;
-            --glass: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass: rgba(0, 0, 0, 0.08);
+            --glass-border: rgba(0, 0, 0, 0.12);
             --gold: #FFD700;
             --gold2: #D4AF37;
-            --bg-primary: #070711;
-            --bg-secondary: #1a1a1a;
-            --text-primary: #f8f8ff;
-            --text-secondary: #e6d4ff;
-        }
-        @media (prefers-color-scheme: light) {
-            :root {
-                --bg-primary: #ffffff;
-                --bg-secondary: #f8fafc;
-                --text-primary: #1e293b;
-                --text-secondary: #475569;
-                --glass: rgba(0, 0, 0, 0.08);
-                --glass-border: rgba(0, 0, 0, 0.12);
-            }
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --purple: #8a2be2;
+            --purple-light: #a855f7;
+            --purple-dark: #6b21a8;
+            --purple-gold: linear-gradient(135deg, #8a2be2, #FFD700);
+            --gold-purple: linear-gradient(135deg, #FFD700, #8a2be2);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         html { scroll-behavior: smooth; }
-        body { background: var(--bg-primary); color: var(--text-primary); line-height: 1.7; padding-top: 78px; transition: background-color 0.3s ease, color 0.3s ease; }
+        body { background: var(--bg-primary); color: var(--text-primary); line-height: 1.7; padding-top: 78px; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 1.25rem; }
         section { padding: 4.5rem 0; position: relative; scroll-margin-top: 110px; }
-        .title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 2.2rem; text-align: center; margin-bottom: 2.5rem; color: var(--gold); position: relative; }
-        .title::after { content:""; position:absolute; bottom:-10px; left:50%; transform:translateX(-50%); width:80px; height:4px; background:linear-gradient(90deg, var(--gold2), var(--gold)); border-radius:2px; }
+        .title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 2.2rem; text-align: center; margin-bottom: 2.5rem; background: var(--purple-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; position: relative; }
+        .title::after { content:""; position:absolute; bottom:-10px; left:50%; transform:translateX(-50%); width:80px; height:4px; background:var(--purple-gold); border-radius:2px; }
 
         /* Hero */
         .hero { padding: 4rem 0 2rem; background: linear-gradient(135deg,var(--bg-secondary),#2d2d2d); transition: background 0.3s ease; }
@@ -133,7 +128,25 @@
 			box-shadow: 0 0 0 6px rgba(212,175,55,.3), 0 0 20px rgba(255,215,0,.5);
 		}
 		.story-step:focus-visible{ outline:2px solid #FFD700; outline-offset:2px; }
-		.chapter-badge{ display:inline-block; font-size:.8rem; color:#FFEC8B; border:1px solid rgba(212,175,55,.28); border-radius:999px; padding:.25rem .6rem; margin-bottom:.5rem; background: rgba(212,175,55,.08); }
+		.chapter-badge {
+    display: inline-block;
+    font-size: .8rem;
+    color: white;
+    border: 1px solid rgba(212, 175, 55, .28);
+    border-radius: 999px;
+    padding: .25rem .6rem;
+    margin-bottom: .5rem;
+    background: goldenrod;
+}
+		/* Light theme overrides for better visibility */
+		@media (prefers-color-scheme: light) {
+			.chapter-badge{ 
+				color:#000000 !important; 
+				border-color: rgba(138,43,226,.4) !important; 
+				background: rgba(138,43,226,.15) !important; 
+				font-weight: 600 !important;
+			}
+		}
 		.step-heading{ color: var(--gold); font-size:1.25rem; margin:.1rem 0 .35rem; }
 		.pull-quote{ max-width:900px; margin:2rem auto 0; border-left:4px solid #D4AF37; }
 		.pull-quote p{ font-family:'Montserrat', sans-serif; font-weight:800; font-size:1.3rem; color:#FFEC8B; }
@@ -451,11 +464,6 @@
                             <div class="fact-number">120+</div>
                             <div class="fact-label">Communities Reached</div>
                         </div>
-                        <div class="fact-card">
-                            <i class="fa-solid fa-award fact-icon" aria-hidden="true"></i>
-                            <div class="fact-number">85+</div>
-                            <div class="fact-label">Success Stories</div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -506,14 +514,7 @@
         <section id="leadership" class="leaders" aria-labelledby="leaders-title">
             <div class="container">
                 <h2 id="leaders-title" class="title">Leadership Team</h2>
-                <div class="grid-3">
-                    <article class="card leader">
-                        <div class="ph" aria-label="Photo of Aching Rehema">
-                            <img src="images/aching-rehema.jpeg" alt="Photo of Aching Rehema">
-                        </div>
-                        <h4>Aching Rehema</h4>
-                        <p>Partnerships and Development Lead</p>
-                    </article>
+                <div class="grid-4">
                     <article class="card leader">
                         <div class="ph" aria-label="Photo of Daisy Khasandi Shaviya">
                             <img src="images/daisy-khasandi-shaviya.jpeg" alt="Photo of Daisy Khasandi Shaviya">
@@ -523,27 +524,45 @@
                     </article>
                     <article class="card leader">
                         <div class="ph" aria-label="Photo of Shirley Nafula">
-                            <img src="images/shirley-nafula.jpeg" alt="Photo of Shirley Nafula">
+                            <img src="images/Advocacy Policy Lead.jpg" alt="Photo of Shirley Nafula">
                         </div>
                         <h4>Shirley Nafula</h4>
                         <p>Advocacy and Policy Lead</p>
                     </article>
+                    <article class="card leader">
+                        <div class="ph" aria-label="Photo of Daisy Khasandi Shaviya">
+                            <img src="images/Finance Nancy wangui.jpg" alt="Photo of Nancy Wangui">
+                        </div>
+                        <h4>Nancy Wangui</h4>
+                        <p>Finance Officer</p>
+                    </article>
+                     <article class="card leader">
+                        <div class="ph" aria-label="Photo of Daisy Khasandi Shaviya">
+                            <img src="images/Partnerships and Development Lead.jpg" alt="Photo of Aching Rehema">
+                        </div>
+                        <h4>Aching Rehema</h4>
+                        <p>Partnerships and Development Lead</p>
+                    </article>
+
+                    </article>
+                    <article class="card leader">
+                        <div class="ph" aria-label="Photo of Daisy Khasandi Shaviya">
+                            <img src="images/Engagement.jpg" alt="Photo of Agnes Kalekye">
+                        </div>
+                        <h4>Agnes Kalekye</h4>
+                        <p>Engagement and Impact Coordinator</p>  
+                    </article>
+                    <article class="card leader">
+                        <div class="ph" aria-label="Photo of Matilda Nzioki">
+                            <img src="images/Associates.jpg" alt="Photo ofMatilda Nzioki">
+                        </div>
+                        <h4>Matilda Nzioki</h4>
+                        <p>Associate Executive Officer</p>
+                    </article>
+
                 </div>
             </div>
         </section>
-
-        <section id="partners" class="partners" aria-labelledby="partners-title">
-            <div class="container">
-                <h2 id="partners-title" class="title">Partners &amp; Sponsors</h2>
-                <div class="logos">
-                    <div class="logo">Partner Logo</div>
-                    <div class="logo">Partner Logo</div>
-                    <div class="logo">Partner Logo</div>
-                    <div class="logo">Partner Logo</div>
-                </div>
-            </div>
-        </section>
-
     </main>
 
     <div id="site-footer"></div>

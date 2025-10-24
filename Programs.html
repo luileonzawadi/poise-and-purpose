@@ -18,9 +18,14 @@
             --text-secondary: #d9d1b8;
             --card-bg: rgba(40, 32, 16, 0.7);
             --border-color: #5a4a21;
-            --gradient-1: linear-gradient(135deg, #d4af37 0%, #fffbc9 100%);
-            --gradient-2: linear-gradient(135deg, #e6c34f 0%, #ffed99 100%);
-            --gold-glow: rgba(212, 175, 55, 0.3);
+            --gradient-1: linear-gradient(135deg, #8a2be2 0%, #FFD700 100%);
+            --gradient-2: linear-gradient(135deg, #a855f7 0%, #ffed99 100%);
+            --gold-glow: rgba(138, 43, 226, 0.3);
+            --purple: #8a2be2;
+            --purple-light: #a855f7;
+            --purple-dark: #6b21a8;
+            --purple-gold: linear-gradient(135deg, #8a2be2, #FFD700);
+            --gold-purple: linear-gradient(135deg, #FFD700, #8a2be2);
         }
 
         * {
@@ -268,15 +273,16 @@
         }
 
         .btn-primary {
-            background: var(--gradient-1);
-            border: 2px solid var(--gradient-1);
-            color: #1a1308;
+            background: linear-gradient(45deg, #D4AF37, #FFD700);
+            border: 2px solid #D4AF37;
+            color: #000;
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
+            background: linear-gradient(45deg, #B8860B, #D4AF37);
         }
 
         .btn-secondary {
