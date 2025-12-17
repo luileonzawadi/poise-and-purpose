@@ -26,6 +26,7 @@
     <meta property="twitter:description"
         content="Get in touch with Poise & Purpose Kenya. Contact information, send us a message.">
     <meta property="twitter:image" content="https://poiseandpurposekenya.org/images/logo.jpg">
+    <link rel="icon" href="images/logo.jpg" type="image/jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -304,18 +305,18 @@
         }
 
         .btn-primary {
-            background: var(--purple-gold);
-            border: 2px solid var(--purple);
-            color: #fff;
-            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+            background: linear-gradient(45deg, #D4AF37, #FFD700);
+            border: 2px solid #D4AF37;
+            color: #000;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
             font-weight: 600;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.6);
-            background: var(--gold-purple);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
+            background: linear-gradient(45deg, #B8860B, #D4AF37);
         }
 
         .btn-secondary {
@@ -352,107 +353,7 @@
             }
         }
 
-        /* Contact Section */
-        .radial-contact {
-            margin-bottom: 8rem;
-            position: relative;
-        }
 
-        .radial-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-        }
-
-        .contact-radial {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            width: 100%;
-        }
-
-        .contact-card {
-            background: var(--card-bg);
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient-1);
-        }
-
-        .contact-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
-        }
-
-        .contact-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--secondary-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .contact-card h3 {
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .contact-card h3::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 30px;
-            height: 2px;
-            background: var(--gradient-1);
-            border-radius: 2px;
-        }
-
-        .contact-details {
-            list-style: none;
-        }
-
-        .contact-details li {
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .contact-details li:last-child {
-            margin-bottom: 0;
-        }
-
-        .contact-text h4 {
-            font-size: 1rem;
-            margin-bottom: 0.3rem;
-            color: var(--text-primary);
-        }
-
-        .contact-text p {
-            margin-bottom: 0;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
 
         /* Form Section */
         .form-section {
@@ -585,24 +486,24 @@
         }
 
         .submit-btn {
-            background: var(--purple-gold);
-            color: #fff;
-            border: 2px solid var(--purple);
+            background: linear-gradient(45deg, #D4AF37, #FFD700);
+            color: #000;
+            border: 2px solid #D4AF37;
             padding: 0.7rem 1.5rem;
             border-radius: 25px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             display: inline-block;
-            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
             font-size: 0.9rem;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
         }
 
         .submit-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.6);
-            background: var(--gold-purple);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
+            background: linear-gradient(45deg, #B8860B, #D4AF37);
         }
 
         @media (max-width: 1024px) {
