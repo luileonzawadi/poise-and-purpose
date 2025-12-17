@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -135,7 +136,8 @@
         }
 
         .contact-item:hover {
-            transform: none; /* prevent movement */
+            transform: none;
+            /* prevent movement */
         }
 
         .contact-icon {
@@ -188,7 +190,8 @@
         }
 
         .social-link:hover {
-            transform: none; /* prevent movement */
+            transform: none;
+            /* prevent movement */
             box-shadow: 0 8px 20px rgba(138, 43, 226, 0.4);
             color: white;
         }
@@ -220,12 +223,15 @@
             0% {
                 transform: translateY(0) translateX(0) rotate(0deg);
             }
+
             33% {
                 transform: translateY(-20px) translateX(10px) rotate(120deg);
             }
+
             66% {
                 transform: translateY(10px) translateX(-15px) rotate(240deg);
             }
+
             100% {
                 transform: translateY(0) translateX(0) rotate(360deg);
             }
@@ -235,9 +241,11 @@
             0% {
                 background-position: 0% 50%;
             }
+
             50% {
                 background-position: 100% 50%;
             }
+
             100% {
                 background-position: 0% 50%;
             }
@@ -281,17 +289,19 @@
         }
     </style>
 </head>
+
 <body>
-    
+
     <footer class="magical-footer">
         <div class="footer-background" id="particles-container"></div>
-        
+
         <div class="footer-container">
             <div class="footer-section">
                 <h3 class="footer-title">Our Vision</h3>
-                <p class="mission-text">To build a world where young women are equally represented in leadership roles, inspiring change and leading with purpose to create inclusive and sustainable communities.</p>
+                <p class="mission-text">To build a world where young women are equally represented in leadership roles,
+                    inspiring change and leading with purpose to create inclusive and sustainable communities.</p>
             </div>
-            
+
             <div class="footer-section">
                 <h3 class="footer-title">Contact Us</h3>
                 <div class="contact-info">
@@ -309,7 +319,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="footer-section">
                 <h3 class="footer-title">Connect With Us</h3>
                 <div class="social-links">
@@ -319,18 +329,20 @@
                     <a href="#" class="social-link" aria-label="Twitter">
                         <i class="fab fa-twitter"></i>
                     </a>
-                    <a href="https://www.instagram.com/poiseandpurpose_kenya?igsh=MmN0OHpjYWJzb281" class="social-link" aria-label="Instagram">
+                    <a href="https://www.instagram.com/poiseandpurpose_kenya?igsh=MmN0OHpjYWJzb281" class="social-link"
+                        aria-label="Instagram">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="https://www.linkedin.com/company/poise-and-purpose-kenya/" class="social-link" aria-label="LinkedIn">
+                    <a href="https://www.linkedin.com/company/poise-and-purpose-kenya/" class="social-link"
+                        aria-label="LinkedIn">
                         <i class="fab fa-linkedin-in"></i>
                     </a>
                 </div>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
-            <p>&copy; 2023 Poise & Purpose. All rights reserved. | Designed with Magic</p>
+            <p>&copy; 2025 Poise & Purpose. All rights reserved.</p>
         </div>
     </footer>
 
@@ -339,32 +351,33 @@
         function createParticles() {
             const container = document.getElementById('particles-container');
             const particleCount = 15;
-            
+
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
-                
+
                 // Random size between 5 and 20px
                 const size = Math.random() * 15 + 5;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
-                
+
                 // Random position
                 particle.style.left = `${Math.random() * 100}%`;
                 particle.style.top = `${Math.random() * 100}%`;
-                
+
                 // Random animation delay and duration
                 particle.style.animationDelay = `${Math.random() * 10}s`;
                 particle.style.animationDuration = `${15 + Math.random() * 10}s`;
-                
+
                 container.appendChild(particle);
             }
         }
-        
+
         // Initialize particles when page loads
         document.addEventListener('DOMContentLoaded', createParticles);
-        
+
         // Remove tilt on hover to prevent movement
     </script>
 </body>
+
 </html>
